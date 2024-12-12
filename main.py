@@ -25,6 +25,7 @@ import unicodedata
 # ///////////////////////////////////////////////////////////////
 from core.Searcher import Searcher
 from core.SearcherController import SearcherController
+from core.WorkerThread import Worker
 from modules import *
 from widgets import *
 from PySide6.QtCore import QRegularExpression
@@ -110,26 +111,53 @@ class MainWindow(QMainWindow):
         self.ui.progressBar.setMaximumWidth(0)
         self.buscados = 0
         
+    def handle_error(self, error):
+        self.progress_queue = deque()
+        self.progress_queue.append(100)
+        self.ui.progressBar.setValue(100)
+        
+        self.ui.status.setWordWrap(True)
+        self.ui.status.setFixedWidth(300)
+
+        if "Permission denied" in error: 
+            file_name = error.split("\\")[-1]
+            error+=f' Check if there is a file named "{file_name}" open. Close it!'
+        self.ui.status.setText(f"<div style='text-align: center; color: lightcoral;'>Terminated with the following error:<br>{error}</div>") 
+        
+    def finished(self):
+        ...
+        
     def start_search(self):
+        self.ui.progressBar.setMaximumHeight(16777215)
+        self.ui.progressBar.setMaximumWidth(16777215)
+        self.progress_queue = deque()
+        self.status_percentage = 0
+        self.ui.progressBar.setValue(0)
+        worker = Worker(self._start_search)
+        worker.signals.error.connect(self.handle_error)
+        # worker.signals.finished.connect(self.finished)
+        self.threadpool.start(worker)
+        
+    def _start_search(self):
         pessoas = []
         for pessoa in self.list:
             pessoas.append((pessoa["cpf"].replace(".","").replace("-",""), pessoa["birth"].replace("/","")))
         if len(pessoas)>0:
             sc = SearcherController(2,False)
             qtt = SearcherController.qtt_tests(pessoas)
-            btn = QMessageBox.warning(
-                self,
+            btn = self.show_message_from_thread(
                 f"{qtt} nomes",
                 f"{qtt} nomes serão buscados. Tem certeza de que deseja continuar?",
-                buttons=QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel,
-                defaultButton=QMessageBox.StandardButton.Ok
+                buttons=[QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No],
+                defaultButton=QMessageBox.StandardButton.Yes
             )
+            self.status_callback(f"Nomes buscados 0/{qtt}", 5)
             percentage = 80/qtt
             def result(result):
-                self.buscados += 1
-                self.status_callback(f"Nomes buscados: ({self.buscados}/qtt)", pessoa*percentage)
+                self.buscados += len(result)
+                self.status_callback(f"Nomes buscados: {self.buscados}/{qtt}", len(result)*percentage)
                 print("Resultado: ", result)
-            if btn == QMessageBox.StandardButton.Ok:
+            if btn == "&Yes":
                 sc.search_list(pessoas, lambda x: print("Subtitle: ", x), result)
         
     def format_tel_input(self):
@@ -145,7 +173,7 @@ class MainWindow(QMainWindow):
         
     def format_birth_input(self):
         text = self.ui.birth_input.text()
-        text = ''.join(c for c in text if c.isdigit())
+        text = ''.join(c for c in text if c.isdigit() or str.lower(c) == "x")
         if len(text) > 8:
             text=text[:8]
         if len(text) > 2:
@@ -192,10 +220,14 @@ class MainWindow(QMainWindow):
         
     def to_lower(self):
         self.ui.mult_input.setPlainText(str.lower(self.ui.mult_input.toPlainText()))
-                
+    
+    def invalid_cpf(self, cpf):
+        only_digits = ''.join(filter(str.isdigit, cpf))
+        return not "x" in str.lower(cpf) and not Searcher.valida_cpf(cpf) and len(only_digits)==11
+    
     def add_one(self):
         if (self.ui.birth_input and self.ui.cpf_input) and (self.ui.cpf_input.text() and self.ui.birth_input.text()):
-            if not "x" in str.lower(self.ui.cpf_input.text()) and not Searcher.valida_cpf(self.ui.cpf_input.text()):
+            if self.invalid_cpf(self.ui.cpf_input.text()):
                 QMessageBox.warning(
                     self,
                     "CPF inválido!",
@@ -251,7 +283,7 @@ class MainWindow(QMainWindow):
                 )
                 return
             if len(values) == 2: values.append(""); values.append("")
-            if not "x" in str.lower(values[1]) and not Searcher.valida_cpf(values[1]):
+            if self.invalid_cpf(values[1]):
                 QMessageBox.warning(
                     self,
                     "CPF inválido!",
@@ -294,10 +326,10 @@ class MainWindow(QMainWindow):
     def mousePressEvent(self, event):
         self.dragPos = QCursor.pos()
         
-        if event.buttons() == Qt.MouseButton.LeftButton:
-            print('Mouse click: LEFT CLICK')
-        if event.buttons() == Qt.MouseButton.RightButton:
-            print('Mouse click: RIGHT CLICK')
+        # if event.buttons() == Qt.MouseButton.LeftButton:
+        #     print('Mouse click: LEFT CLICK')
+        # if event.buttons() == Qt.MouseButton.RightButton:
+        #     print('Mouse click: RIGHT CLICK')
             
             
     def show_message_from_thread(self, title: str, text: str, buttons: List[Union[int, str]], defaultButton: int) -> str:
@@ -340,9 +372,6 @@ class MainWindow(QMainWindow):
             QMetaObject.invokeMethod(self, "animate_progress", Qt.QueuedConnection, Q_ARG(int, new_value))  # type: ignore
             
     def status_callback(self, message: str, percentage: float):
-        if self.ui.progressBar.width() == 0:
-            self.ui.progressBar.setMaximumWidth(16777215)
-            self.ui.progressBar.setMaximumHeight(16777215)
         max_lenght = 56
         if len(message) > max_lenght:
             message = message[:max_lenght] + "..."
@@ -360,7 +389,7 @@ class MainWindow(QMainWindow):
         self.animation.setStartValue(self.ui.progressBar.value())
         self.animation.setEndValue(new_value)
         self.animation.setEasingCurve(QEasingCurve.Type.OutCubic)
-        
+        self.animation.start()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

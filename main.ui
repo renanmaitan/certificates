@@ -1330,6 +1330,11 @@ Button */
                             <layout class="QHBoxLayout" name="horizontalLayout_6">
                              <item>
                               <widget class="QPushButton" name="generate_word">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="styleSheet">
                                 <string notr="true">background-color: cornflowerblue;
 color: #fff;
@@ -1345,6 +1350,11 @@ border-radius: 5px;</string>
                              </item>
                              <item>
                               <widget class="QPushButton" name="generate_ppt">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="styleSheet">
                                 <string notr="true">background-color:rgb(193, 61, 61);
 color: #fff;
@@ -1454,6 +1464,11 @@ height: 64px;</string>
                              </item>
                              <item>
                               <widget class="QPushButton" name="open_name_list">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="styleSheet">
                                 <string notr="true">background-color: #2d2226;
 color: #fff;
@@ -1573,8 +1588,8 @@ height: 64px;</string>
                               <widget class="QLabel" name="label_2">
                                <property name="font">
                                 <font>
-                                 <pointsize>12</pointsize>
-                                 <bold>true</bold>
+                                 <pointsize>16</pointsize>
+                                 <bold>false</bold>
                                 </font>
                                </property>
                                <property name="text">
@@ -1587,6 +1602,11 @@ height: 64px;</string>
                              </item>
                              <item alignment="Qt::AlignHCenter">
                               <widget class="QLabel" name="label_3">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="text">
                                 <string>Data de nascimento</string>
                                </property>
@@ -1597,6 +1617,11 @@ height: 64px;</string>
                              </item>
                              <item alignment="Qt::AlignHCenter">
                               <widget class="QLabel" name="label_4">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="text">
                                 <string>CPF</string>
                                </property>
@@ -1607,6 +1632,11 @@ height: 64px;</string>
                              </item>
                              <item alignment="Qt::AlignHCenter">
                               <widget class="QLabel" name="label_6">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="text">
                                 <string>Telefone (Opcional)</string>
                                </property>
@@ -1617,6 +1647,11 @@ height: 64px;</string>
                              </item>
                              <item alignment="Qt::AlignHCenter">
                               <widget class="QLabel" name="label_7">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="text">
                                 <string>Email (Opcional)</string>
                                </property>
@@ -1627,6 +1662,11 @@ height: 64px;</string>
                              </item>
                              <item alignment="Qt::AlignHCenter">
                               <widget class="QPushButton" name="add_one">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="styleSheet">
                                 <string notr="true">background-color: #2d2226;
 color: #fff;
@@ -1656,8 +1696,8 @@ border-radius: 5px;</string>
                               <widget class="QLabel" name="label_5">
                                <property name="font">
                                 <font>
-                                 <pointsize>12</pointsize>
-                                 <bold>true</bold>
+                                 <pointsize>16</pointsize>
+                                 <bold>false</bold>
                                 </font>
                                </property>
                                <property name="text">
@@ -1672,7 +1712,7 @@ border-radius: 5px;</string>
                               <widget class="QLabel" name="label_8">
                                <property name="font">
                                 <font>
-                                 <pointsize>8</pointsize>
+                                 <pointsize>9</pointsize>
                                 </font>
                                </property>
                                <property name="text">
@@ -1684,7 +1724,7 @@ border-radius: 5px;</string>
                               <widget class="QLabel" name="label_9">
                                <property name="font">
                                 <font>
-                                 <pointsize>8</pointsize>
+                                 <pointsize>9</pointsize>
                                 </font>
                                </property>
                                <property name="text">
@@ -1696,7 +1736,7 @@ border-radius: 5px;</string>
                               <widget class="QLabel" name="label_10">
                                <property name="font">
                                 <font>
-                                 <pointsize>8</pointsize>
+                                 <pointsize>9</pointsize>
                                 </font>
                                </property>
                                <property name="text">
@@ -1716,6 +1756,11 @@ border-radius: 5px;</string>
                                <layout class="QHBoxLayout" name="horizontalLayout_9">
                                 <item>
                                  <widget class="QPushButton" name="add_mult">
+                                  <property name="font">
+                                   <font>
+                                    <pointsize>11</pointsize>
+                                   </font>
+                                  </property>
                                   <property name="toolTip">
                                    <string>Adicionar vários</string>
                                   </property>
@@ -1734,6 +1779,11 @@ border-radius: 5px;</string>
                                 </item>
                                 <item>
                                  <widget class="QPushButton" name="tiny_btn">
+                                  <property name="font">
+                                   <font>
+                                    <pointsize>11</pointsize>
+                                   </font>
+                                  </property>
                                   <property name="toolTip">
                                    <string>Transforma tudo em minúsculo</string>
                                   </property>

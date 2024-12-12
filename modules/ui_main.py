@@ -872,6 +872,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.generate_word = QPushButton(self.widget_2)
         self.generate_word.setObjectName(u"generate_word")
+        font5 = QFont()
+        font5.setPointSize(11)
+        self.generate_word.setFont(font5)
         self.generate_word.setStyleSheet(u"background-color: cornflowerblue;\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -883,6 +886,7 @@ class Ui_MainWindow(object):
 
         self.generate_ppt = QPushButton(self.widget_2)
         self.generate_ppt.setObjectName(u"generate_ppt")
+        self.generate_ppt.setFont(font5)
         self.generate_ppt.setStyleSheet(u"background-color:rgb(193, 61, 61);\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -939,6 +943,7 @@ class Ui_MainWindow(object):
 
         self.open_name_list = QPushButton(self.widget_3)
         self.open_name_list.setObjectName(u"open_name_list")
+        self.open_name_list.setFont(font5)
         self.open_name_list.setStyleSheet(u"background-color: #2d2226;\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1001,16 +1006,17 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.label_2 = QLabel(self.widget_5)
         self.label_2.setObjectName(u"label_2")
-        font5 = QFont()
-        font5.setPointSize(12)
-        font5.setBold(True)
-        self.label_2.setFont(font5)
+        font6 = QFont()
+        font6.setPointSize(16)
+        font6.setBold(False)
+        self.label_2.setFont(font6)
         self.label_2.setProperty("isSubtitle", True)
 
         self.verticalLayout_7.addWidget(self.label_2, 0, Qt.AlignHCenter)
 
         self.label_3 = QLabel(self.widget_5)
         self.label_3.setObjectName(u"label_3")
+        self.label_3.setFont(font5)
 
         self.verticalLayout_7.addWidget(self.label_3, 0, Qt.AlignHCenter)
 
@@ -1021,6 +1027,7 @@ class Ui_MainWindow(object):
 
         self.label_4 = QLabel(self.widget_5)
         self.label_4.setObjectName(u"label_4")
+        self.label_4.setFont(font5)
 
         self.verticalLayout_7.addWidget(self.label_4, 0, Qt.AlignHCenter)
 
@@ -1031,6 +1038,7 @@ class Ui_MainWindow(object):
 
         self.label_6 = QLabel(self.widget_5)
         self.label_6.setObjectName(u"label_6")
+        self.label_6.setFont(font5)
 
         self.verticalLayout_7.addWidget(self.label_6, 0, Qt.AlignHCenter)
 
@@ -1041,6 +1049,7 @@ class Ui_MainWindow(object):
 
         self.label_7 = QLabel(self.widget_5)
         self.label_7.setObjectName(u"label_7")
+        self.label_7.setFont(font5)
 
         self.verticalLayout_7.addWidget(self.label_7, 0, Qt.AlignHCenter)
 
@@ -1051,6 +1060,7 @@ class Ui_MainWindow(object):
 
         self.add_one = QPushButton(self.widget_5)
         self.add_one.setObjectName(u"add_one")
+        self.add_one.setFont(font5)
         self.add_one.setStyleSheet(u"background-color: #2d2226;\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1070,28 +1080,28 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.label_5 = QLabel(self.widget_6)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font5)
+        self.label_5.setFont(font6)
         self.label_5.setProperty("isSubtitle", True)
 
         self.verticalLayout_9.addWidget(self.label_5, 0, Qt.AlignHCenter)
 
         self.label_8 = QLabel(self.widget_6)
         self.label_8.setObjectName(u"label_8")
-        font6 = QFont()
-        font6.setPointSize(8)
-        self.label_8.setFont(font6)
+        font7 = QFont()
+        font7.setPointSize(9)
+        self.label_8.setFont(font7)
 
         self.verticalLayout_9.addWidget(self.label_8)
 
         self.label_9 = QLabel(self.widget_6)
         self.label_9.setObjectName(u"label_9")
-        self.label_9.setFont(font6)
+        self.label_9.setFont(font7)
 
         self.verticalLayout_9.addWidget(self.label_9)
 
         self.label_10 = QLabel(self.widget_6)
         self.label_10.setObjectName(u"label_10")
-        self.label_10.setFont(font6)
+        self.label_10.setFont(font7)
 
         self.verticalLayout_9.addWidget(self.label_10)
 
@@ -1107,6 +1117,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
         self.add_mult = QPushButton(self.widget_7)
         self.add_mult.setObjectName(u"add_mult")
+        self.add_mult.setFont(font5)
         self.add_mult.setStyleSheet(u"background-color: #2d2226;\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1118,6 +1129,7 @@ class Ui_MainWindow(object):
 
         self.tiny_btn = QPushButton(self.widget_7)
         self.tiny_btn.setObjectName(u"tiny_btn")
+        self.tiny_btn.setFont(font5)
         self.tiny_btn.setStyleSheet(u"background-color: #2d2226;\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1162,11 +1174,11 @@ class Ui_MainWindow(object):
         self.creditsLabel = QLabel(self.bottomBar)
         self.creditsLabel.setObjectName(u"creditsLabel")
         self.creditsLabel.setMaximumSize(QSize(16777215, 16))
-        font7 = QFont()
-        font7.setFamilies([u"Segoe UI"])
-        font7.setBold(False)
-        font7.setItalic(False)
-        self.creditsLabel.setFont(font7)
+        font8 = QFont()
+        font8.setFamilies([u"Segoe UI"])
+        font8.setBold(False)
+        font8.setItalic(False)
+        self.creditsLabel.setFont(font8)
         self.creditsLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.horizontalLayout_5.addWidget(self.creditsLabel)
