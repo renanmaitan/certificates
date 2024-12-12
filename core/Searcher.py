@@ -119,43 +119,31 @@ class Searcher():
         ).click()
         
         try:
-            erro_data_nasc = WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "#content-core > div > div > div.clConteudoCentro > span > h4 > b"))
+            WebDriverWait(self.driver, 20).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "#content-core > div > div"))
             )
-            if erro_data_nasc:
-                return [{"Erro": "Data de nascimento incorreta. Verifique as informações e tente novamente."}]
+            try:
+                container = self.driver.find_element(By.CLASS_NAME, "clConteudoEsquerda")
+                linhas = container.text.split("\n")
+                for linha in linhas:
+                    if "Nome" in linha:
+                        nome = " ".join(linha.split(":")[1:]).strip()
+                    elif "Data de Nascimento" in linha:
+                        data = linha.split(":")[1].strip()
+                    elif "No do CPF" in linha:
+                        n_cpf = linha.split(":")[1].strip()
+                return [{
+                    "cpf": n_cpf,
+                    "nome": nome,
+                    "nasc": data
+                }]
+            except Exception as e:
+                return [{
+                    "Erro": "CPF ou Data de nascimento incorreto!"
+                }]
         except:
-            pass
-        
-        try:
-            erro_cpf = WebDriverWait(self.driver, 5).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "#content-core > div > div > div.clConteudoCentro > span > h4"))
-            )
-            if erro_cpf:
-                return [{"Erro": "CPF incorreto. Verifique o CPF e tente novamente."}]
-        except:
-            pass
-        
-        try:
-            container = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.CLASS_NAME, "clConteudoEsquerda"))
-            )
-            linhas = container.text.split("\n")
-            for linha in linhas:
-                if "Nome" in linha:
-                    nome = " ".join(linha.split(":")[1:]).strip()
-                elif "Data de Nascimento" in linha:
-                    data = linha.split(":")[1].strip()
-                elif "No do CPF" in linha:
-                    n_cpf = linha.split(":")[1].strip()
             return [{
-                "cpf": n_cpf,
-                "nome": nome,
-                "nasc": data
-            }]
-        except Exception as e:
-            return [{
-                "Erro": str(e)
+                "Erro": "Erro ao carregar a página de resultado!"
             }]
             
     @staticmethod
