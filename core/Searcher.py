@@ -56,10 +56,23 @@ class Searcher():
     def search_by_batch(self, lista: List[Tuple[str, str]], callback) -> List[Dict[str, str]]:
         dados = []
         for pessoa in lista:
+            only_digits = ''.join(filter(str.isdigit, pessoa[0]))
+            only_digits_list = list(only_digits)
             if "x" in str.lower(pessoa[0]):
                 new_cpfs = self.try_cpf(pessoa[0])
                 for new_cpf in new_cpfs:
                     dados.extend(self.search(new_cpf, pessoa[1], callback))
+                continue
+            elif len(only_digits) < 11:
+                to_search = set()
+                for i in range(11):
+                    only_digits_lis_copy = only_digits_list.copy()
+                    only_digits_lis_copy.insert(i, "X")
+                    new_cpfs = self.try_cpf("".join(only_digits_lis_copy))
+                    for new_cpf in new_cpfs:
+                        to_search.add(new_cpf)
+                for element in to_search:
+                    dados.extend(self.search(element, pessoa[1], callback))
                 continue
             dados.extend(self.search(pessoa[0], pessoa[1], callback))
         return dados
