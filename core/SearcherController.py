@@ -15,8 +15,18 @@ class SearcherController:
         for i in range(len(pessoas)):
             add = 1
             pessoa = pessoas[i]
+            only_digits = list(''.join(filter(str.isdigit, pessoa[0])))
             if "x" in str.lower(pessoa[0]):
                 add*=len(Searcher.try_cpf(pessoa[0]))
+            elif len(only_digits) == 10:
+                to_search = set()
+                for i in range(11):
+                    only_digits_lis_copy = only_digits.copy()
+                    only_digits_lis_copy.insert(i, "X")
+                    new_cpfs = Searcher.try_cpf("".join(only_digits_lis_copy))
+                    for new_cpf in new_cpfs:
+                        to_search.add(new_cpf)
+                add*=len(to_search)
             if "x" in str.lower(pessoa[1]):
                 add*=len(Searcher.try_nasc(pessoa[1],[]))
             qtt+=add
@@ -39,8 +49,8 @@ class SearcherController:
         
     def search_list(self, list: List[Tuple[str, str]], callback_subtitle, callback_result):
         
-        self.start_pages()
         self.split_list(list)
+        self.start_pages()
         
         def on_thread_done(future, searcher):
             searcher.close()
