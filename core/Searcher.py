@@ -14,6 +14,7 @@ class Searcher():
         if not visible_chrome: 
                 chrome_options.add_argument("--headless")
                 chrome_options.add_argument("--disable-gpu")
+                chrome_options.add_argument("--disable-webgl")
         self.driver = webdriver.Chrome(chrome_options)
     
     def load_cfg(self) -> dict:
