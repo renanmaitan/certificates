@@ -915,7 +915,43 @@ Button */
                    <string notr="true">background-image: url(:/icons/images/icons/cil-view-module.png);</string>
                   </property>
                   <property name="text">
-                   <string>List View</string>
+                   <string>Lista de pessoas</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="cfg_btn">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>45</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Segoe UI</family>
+                    <pointsize>10</pointsize>
+                    <italic>false</italic>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-image: url(:/icons/images/icons/cil-settings.png);</string>
+                  </property>
+                  <property name="text">
+                   <string>Configurações</string>
                   </property>
                  </widget>
                 </item>
@@ -1282,7 +1318,7 @@ Button */
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="styleSheet">
@@ -1842,6 +1878,11 @@ border-radius: 5px;</string>
                           </item>
                           <item>
                            <widget class="QTableWidget" name="list_table">
+                            <property name="font">
+                             <font>
+                              <pointsize>11</pointsize>
+                             </font>
+                            </property>
                             <column>
                              <property name="text">
                               <string>Nome</string>
@@ -1874,6 +1915,11 @@ border-radius: 5px;</string>
                           </item>
                           <item alignment="Qt::AlignHCenter">
                            <widget class="QPushButton" name="find_btn">
+                            <property name="font">
+                             <font>
+                              <pointsize>11</pointsize>
+                             </font>
+                            </property>
                             <property name="styleSheet">
                              <string notr="true">background-color: rgb(169, 127, 209);
 color: #fff;
@@ -1892,6 +1938,11 @@ border-radius: 5px;</string>
                             <layout class="QHBoxLayout" name="horizontalLayout_10">
                              <item>
                               <widget class="QPushButton" name="capital_btn_list">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="toolTip">
                                 <string>Tranforma a primeira letra dos nomes próprios em maiúsculo</string>
                                </property>
@@ -1910,6 +1961,11 @@ border-radius: 5px;</string>
                              </item>
                              <item>
                               <widget class="QPushButton" name="tiny_btn_list">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="toolTip">
                                 <string>Transforma tudo em minúsculo</string>
                                </property>
@@ -1928,6 +1984,11 @@ border-radius: 5px;</string>
                              </item>
                              <item>
                               <widget class="QPushButton" name="del_all_list">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="toolTip">
                                 <string>Deleta todas as linhas</string>
                                </property>
@@ -1946,6 +2007,11 @@ border-radius: 5px;</string>
                              </item>
                              <item>
                               <widget class="QPushButton" name="del_list">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="toolTip">
                                 <string>Deleta a linha selecionada</string>
                                </property>
@@ -1959,6 +2025,188 @@ border-radius: 5px;</string>
                                </property>
                                <property name="text">
                                 <string>Deletar</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="script_config">
+                      <layout class="QVBoxLayout" name="verticalLayout_14">
+                       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                        <widget class="QWidget" name="widget_12" native="true">
+                         <layout class="QVBoxLayout" name="verticalLayout_13">
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QLabel" name="label_12">
+                            <property name="font">
+                             <font>
+                              <pointsize>20</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Configurações do Programa</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="verticalSpacer">
+                            <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>20</width>
+                              <height>40</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                          <item>
+                           <widget class="QWidget" name="widget_15" native="true">
+                            <layout class="QHBoxLayout" name="horizontalLayout_13">
+                             <item>
+                              <widget class="QLabel" name="label_15">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="text">
+                                <string>Modelo de nomes do certificado</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="name_model">
+                               <property name="minimumSize">
+                                <size>
+                                 <width>300</width>
+                                 <height>0</height>
+                                </size>
+                               </property>
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="save_model_name">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(0, 170, 0);
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                               </property>
+                               <property name="text">
+                                <string>Salvar</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QWidget" name="widget_13" native="true">
+                            <layout class="QHBoxLayout" name="horizontalLayout_11">
+                             <item>
+                              <widget class="QLabel" name="label_13">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="text">
+                                <string>Modelo Word:</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="word_model">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="choose_word">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: #2d2226;
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                               </property>
+                               <property name="text">
+                                <string>Escolher</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QWidget" name="widget_14" native="true">
+                            <layout class="QHBoxLayout" name="horizontalLayout_12">
+                             <item>
+                              <widget class="QLabel" name="label_14">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="text">
+                                <string>Modelo Powerpoint:</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="powerpoint_model">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="choose_pptx">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: #2d2226;
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                               </property>
+                               <property name="text">
+                                <string>Escolher</string>
                                </property>
                               </widget>
                              </item>

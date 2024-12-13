@@ -115,11 +115,64 @@ class MainWindow(QMainWindow):
         self.buscados = 0
         
         self.start_table()
+        self.start_configs()
         
         self.ui.capital_btn_list.clicked.connect(self.capitalize_list)
         self.ui.tiny_btn_list.clicked.connect(self.to_lower_list)
         self.ui.del_all_list.clicked.connect(self.del_all_list)
         self.ui.del_list.clicked.connect(self.del_selected_list)
+        
+        self.ui.save_model_name.clicked.connect(self.save_name_model)
+        self.ui.choose_pptx.clicked.connect(self.choose_pptx)
+        self.ui.choose_word.clicked.connect(self.choose_word)
+        
+        self.ui.open_name_list.clicked.connect(self.buttonClick)
+        
+        self.ui.cfg_btn.clicked.connect(self.buttonClick)
+        
+    def start_configs(self):
+        cfgs = self.get_cfgs()
+        self.ui.name_model.setText(cfgs["name_model"])
+        self.ui.word_model.setText(cfgs["word_model"])
+        self.ui.powerpoint_model.setText(cfgs["pptx_model"])
+    
+    def get_cfgs(self):
+        with open("config/general.json", "r") as file:
+            return json.load(file)
+    
+    def save_configs(self, cfg):
+        with open("config/general.json", "w") as file:
+            json.dump(cfg, file, indent=4)
+            
+    def save_name_model(self):
+        cfgs = self.get_cfgs()
+        cfgs["name_model"] = self.ui.name_model.text()
+        self.save_configs(cfgs)
+    
+    def choose_word(self):
+        file = self.choose_file()
+        if file:
+            cfgs = self.get_cfgs()
+            self.ui.word_model.setText(file)
+            cfgs["word_model"] = file
+            self.save_configs(cfgs)
+        
+    def choose_pptx(self):
+        file = self.choose_file()
+        if file:
+            cfgs = self.get_cfgs()
+            self.ui.powerpoint_model.setText(file)
+            cfgs["pptx_model"] = file
+            self.save_configs(cfgs)
+        
+    def choose_file(self) -> str:
+        file_dialog = QFileDialog()
+        file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+        if file_dialog.exec():
+            file_path = file_dialog.selectedFiles()[0]
+            return file_path
+        else:
+            return ""
         
     def detect_ctrl_c(self, event):
         if event.matches(QKeySequence.StandardKey.Copy):
@@ -420,11 +473,15 @@ class MainWindow(QMainWindow):
             UIFunctions.resetStyle(self, btnName)
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
             
-        if btnName == "list_btn":
+        if btnName == "list_btn" or btnName == "open_name_list":
             self.ui.stackedWidget.setCurrentWidget(self.ui.list_view)
             UIFunctions.resetStyle(self, btnName)
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
             
+        if btnName == "cfg_btn":
+            self.ui.stackedWidget.setCurrentWidget(self.ui.script_config)
+            UIFunctions.resetStyle(self, btnName)
+            btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
 
     def resizeEvent(self, event):
         UIFunctions.resize_grips(self) #type: ignore

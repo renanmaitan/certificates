@@ -17,8 +17,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
     QLabel, QLineEdit, QMainWindow, QPlainTextEdit,
-    QProgressBar, QPushButton, QSizePolicy, QStackedWidget,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+    QProgressBar, QPushButton, QSizePolicy, QSpacerItem,
+    QStackedWidget, QTableWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -693,6 +694,18 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_8.addWidget(self.list_btn)
 
+        self.cfg_btn = QPushButton(self.topMenu)
+        self.cfg_btn.setObjectName(u"cfg_btn")
+        sizePolicy.setHeightForWidth(self.cfg_btn.sizePolicy().hasHeightForWidth())
+        self.cfg_btn.setSizePolicy(sizePolicy)
+        self.cfg_btn.setMinimumSize(QSize(0, 45))
+        self.cfg_btn.setFont(font)
+        self.cfg_btn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.cfg_btn.setLayoutDirection(Qt.LeftToRight)
+        self.cfg_btn.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-settings.png);")
+
+        self.verticalLayout_8.addWidget(self.cfg_btn)
+
 
         self.verticalMenuLayout.addWidget(self.topMenu, 0, Qt.AlignTop)
 
@@ -1187,6 +1200,7 @@ class Ui_MainWindow(object):
         __qtablewidgetitem4 = QTableWidgetItem()
         self.list_table.setHorizontalHeaderItem(4, __qtablewidgetitem4)
         self.list_table.setObjectName(u"list_table")
+        self.list_table.setFont(font5)
 
         self.verticalLayout_11.addWidget(self.list_table)
 
@@ -1197,6 +1211,7 @@ class Ui_MainWindow(object):
 
         self.find_btn = QPushButton(self.widget_8)
         self.find_btn.setObjectName(u"find_btn")
+        self.find_btn.setFont(font5)
         self.find_btn.setStyleSheet(u"background-color: rgb(169, 127, 209);\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1212,6 +1227,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.capital_btn_list = QPushButton(self.widget_9)
         self.capital_btn_list.setObjectName(u"capital_btn_list")
+        self.capital_btn_list.setFont(font5)
         self.capital_btn_list.setStyleSheet(u"background-color: rgb(60, 61, 93);\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1223,6 +1239,7 @@ class Ui_MainWindow(object):
 
         self.tiny_btn_list = QPushButton(self.widget_9)
         self.tiny_btn_list.setObjectName(u"tiny_btn_list")
+        self.tiny_btn_list.setFont(font5)
         self.tiny_btn_list.setStyleSheet(u"background-color: rgb(0, 85, 0);\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1234,6 +1251,7 @@ class Ui_MainWindow(object):
 
         self.del_all_list = QPushButton(self.widget_9)
         self.del_all_list.setObjectName(u"del_all_list")
+        self.del_all_list.setFont(font5)
         self.del_all_list.setStyleSheet(u"background-color: #2d2226;\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1245,6 +1263,7 @@ class Ui_MainWindow(object):
 
         self.del_list = QPushButton(self.widget_9)
         self.del_list.setObjectName(u"del_list")
+        self.del_list.setFont(font5)
         self.del_list.setStyleSheet(u"background-color: rgb(170, 0, 0);\n"
 "color: #fff;\n"
 "padding: 5px;\n"
@@ -1261,6 +1280,122 @@ class Ui_MainWindow(object):
         self.verticalLayout_10.addWidget(self.widget_8)
 
         self.stackedWidget.addWidget(self.list_view)
+        self.script_config = QWidget()
+        self.script_config.setObjectName(u"script_config")
+        self.verticalLayout_14 = QVBoxLayout(self.script_config)
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.widget_12 = QWidget(self.script_config)
+        self.widget_12.setObjectName(u"widget_12")
+        self.verticalLayout_13 = QVBoxLayout(self.widget_12)
+        self.verticalLayout_13.setObjectName(u"verticalLayout_13")
+        self.label_12 = QLabel(self.widget_12)
+        self.label_12.setObjectName(u"label_12")
+        self.label_12.setFont(font8)
+
+        self.verticalLayout_13.addWidget(self.label_12, 0, Qt.AlignHCenter)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_13.addItem(self.verticalSpacer)
+
+        self.widget_15 = QWidget(self.widget_12)
+        self.widget_15.setObjectName(u"widget_15")
+        self.horizontalLayout_13 = QHBoxLayout(self.widget_15)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.label_15 = QLabel(self.widget_15)
+        self.label_15.setObjectName(u"label_15")
+        self.label_15.setFont(font5)
+
+        self.horizontalLayout_13.addWidget(self.label_15)
+
+        self.name_model = QLineEdit(self.widget_15)
+        self.name_model.setObjectName(u"name_model")
+        self.name_model.setMinimumSize(QSize(300, 0))
+        self.name_model.setFont(font5)
+
+        self.horizontalLayout_13.addWidget(self.name_model)
+
+        self.save_model_name = QPushButton(self.widget_15)
+        self.save_model_name.setObjectName(u"save_model_name")
+        self.save_model_name.setFont(font5)
+        self.save_model_name.setStyleSheet(u"background-color: rgb(0, 170, 0);\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.horizontalLayout_13.addWidget(self.save_model_name)
+
+
+        self.verticalLayout_13.addWidget(self.widget_15)
+
+        self.widget_13 = QWidget(self.widget_12)
+        self.widget_13.setObjectName(u"widget_13")
+        self.horizontalLayout_11 = QHBoxLayout(self.widget_13)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.label_13 = QLabel(self.widget_13)
+        self.label_13.setObjectName(u"label_13")
+        self.label_13.setFont(font5)
+
+        self.horizontalLayout_11.addWidget(self.label_13)
+
+        self.word_model = QLineEdit(self.widget_13)
+        self.word_model.setObjectName(u"word_model")
+        self.word_model.setFont(font5)
+
+        self.horizontalLayout_11.addWidget(self.word_model)
+
+        self.choose_word = QPushButton(self.widget_13)
+        self.choose_word.setObjectName(u"choose_word")
+        self.choose_word.setFont(font5)
+        self.choose_word.setStyleSheet(u"background-color: #2d2226;\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.horizontalLayout_11.addWidget(self.choose_word)
+
+
+        self.verticalLayout_13.addWidget(self.widget_13)
+
+        self.widget_14 = QWidget(self.widget_12)
+        self.widget_14.setObjectName(u"widget_14")
+        self.horizontalLayout_12 = QHBoxLayout(self.widget_14)
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.label_14 = QLabel(self.widget_14)
+        self.label_14.setObjectName(u"label_14")
+        self.label_14.setFont(font5)
+
+        self.horizontalLayout_12.addWidget(self.label_14)
+
+        self.powerpoint_model = QLineEdit(self.widget_14)
+        self.powerpoint_model.setObjectName(u"powerpoint_model")
+        self.powerpoint_model.setFont(font5)
+
+        self.horizontalLayout_12.addWidget(self.powerpoint_model)
+
+        self.choose_pptx = QPushButton(self.widget_14)
+        self.choose_pptx.setObjectName(u"choose_pptx")
+        self.choose_pptx.setFont(font5)
+        self.choose_pptx.setStyleSheet(u"background-color: #2d2226;\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.horizontalLayout_12.addWidget(self.choose_pptx)
+
+
+        self.verticalLayout_13.addWidget(self.widget_14)
+
+
+        self.verticalLayout_14.addWidget(self.widget_12, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
+        self.stackedWidget.addWidget(self.script_config)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)
 
@@ -1323,7 +1458,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1335,7 +1470,8 @@ class Ui_MainWindow(object):
         self.titleLeftDescription.setText(QCoreApplication.translate("MainWindow", u"Modern GUI / Flat Style", None))
         self.toggleButton.setText(QCoreApplication.translate("MainWindow", u"Hide", None))
         self.btn_home.setText(QCoreApplication.translate("MainWindow", u"Home", None))
-        self.list_btn.setText(QCoreApplication.translate("MainWindow", u"List View", None))
+        self.list_btn.setText(QCoreApplication.translate("MainWindow", u"Lista de pessoas", None))
+        self.cfg_btn.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00f5es", None))
         self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"PyCertificate - Auto searching / certificate generating robot", None))
 #if QT_CONFIG(tooltip)
         self.minimizeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Minimize", None))
@@ -1404,6 +1540,13 @@ class Ui_MainWindow(object):
         self.del_list.setToolTip(QCoreApplication.translate("MainWindow", u"Deleta a linha selecionada", None))
 #endif // QT_CONFIG(tooltip)
         self.del_list.setText(QCoreApplication.translate("MainWindow", u"Deletar", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00f5es do Programa", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Modelo de nomes do certificado", None))
+        self.save_model_name.setText(QCoreApplication.translate("MainWindow", u"Salvar", None))
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Modelo Word:", None))
+        self.choose_word.setText(QCoreApplication.translate("MainWindow", u"Escolher", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Modelo Powerpoint:", None))
+        self.choose_pptx.setText(QCoreApplication.translate("MainWindow", u"Escolher", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"Developed by Renan A. Maitan", None))
         self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.0", None))
     # retranslateUi
