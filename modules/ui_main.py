@@ -1120,6 +1120,7 @@ class Ui_MainWindow(object):
 
         self.mult_input = QPlainTextEdit(self.widget_6)
         self.mult_input.setObjectName(u"mult_input")
+        self.mult_input.setFont(font5)
         self.mult_input.setStyleSheet(u"border: 1px solid gray;")
 
         self.verticalLayout_9.addWidget(self.mult_input)
@@ -1403,6 +1404,37 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_13.addWidget(self.widget_14)
 
+        self.widget_16 = QWidget(self.widget_12)
+        self.widget_16.setObjectName(u"widget_16")
+        self.horizontalLayout_14 = QHBoxLayout(self.widget_16)
+        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        self.label_16 = QLabel(self.widget_16)
+        self.label_16.setObjectName(u"label_16")
+        self.label_16.setFont(font5)
+
+        self.horizontalLayout_14.addWidget(self.label_16)
+
+        self.parallel_pages = QLineEdit(self.widget_16)
+        self.parallel_pages.setObjectName(u"parallel_pages")
+        self.parallel_pages.setFont(font5)
+
+        self.horizontalLayout_14.addWidget(self.parallel_pages)
+
+        self.save_parallel = QPushButton(self.widget_16)
+        self.save_parallel.setObjectName(u"save_parallel")
+        self.save_parallel.setFont(font5)
+        self.save_parallel.setStyleSheet(u"background-color: rgb(0, 170, 0);\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.horizontalLayout_14.addWidget(self.save_parallel)
+
+
+        self.verticalLayout_13.addWidget(self.widget_16)
+
 
         self.verticalLayout_14.addWidget(self.widget_12, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
@@ -1469,7 +1501,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1559,6 +1591,8 @@ class Ui_MainWindow(object):
         self.choose_word.setText(QCoreApplication.translate("MainWindow", u"Escolher", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Modelo Powerpoint:", None))
         self.choose_pptx.setText(QCoreApplication.translate("MainWindow", u"Escolher", None))
+        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Quantidade de navegadores simult\u00e2neos", None))
+        self.save_parallel.setText(QCoreApplication.translate("MainWindow", u"Salvar", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"Developed by Renan A. Maitan", None))
         self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.0", None))
     # retranslateUi

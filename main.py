@@ -152,6 +152,12 @@ class MainWindow(QMainWindow):
         os.makedirs(self.pptx_folder, exist_ok=True)
         self.ui.open_ppt_folder.clicked.connect(self.open_pptx_folder)
         
+        self.ui.save_parallel.clicked.connect(self.save_parallel)
+    
+    def save_parallel(self):
+        cfgs = self.get_cfgs()
+        cfgs["parallel"] = int(self.ui.parallel_pages.text())
+        
     def open_pptx_folder(self):
         os.startfile(self.pptx_folder)
         
@@ -197,6 +203,7 @@ class MainWindow(QMainWindow):
         self.ui.name_model.setText(cfgs["name_model"])
         self.ui.word_model.setText(cfgs["word_model"])
         self.ui.powerpoint_model.setText(cfgs["pptx_model"])
+        self.ui.parallel_pages.setText(str(cfgs["parallel"]))
     
     def get_cfgs(self):
         with open("config/general.json", "r") as file:
@@ -373,7 +380,7 @@ class MainWindow(QMainWindow):
         for pessoa in self.list:
             pessoas.append((pessoa["cpf"].replace(".","").replace("-",""), pessoa["birth"].replace("/","")))
         if len(pessoas)>0:
-            sc = SearcherController(2,False)
+            sc = SearcherController(int(self.ui.parallel_pages.text()),False)
             qtt = SearcherController.qtt_tests(pessoas)
             btn = self.show_message_from_thread(
                 f"{qtt} nomes",

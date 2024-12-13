@@ -1318,7 +1318,7 @@ Button */
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="styleSheet">
@@ -1782,6 +1782,11 @@ border-radius: 5px;</string>
                              </item>
                              <item>
                               <widget class="QPlainTextEdit" name="mult_input">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
                                <property name="styleSheet">
                                 <string notr="true">border: 1px solid gray;</string>
                                </property>
@@ -2221,6 +2226,53 @@ border-radius: 5px;</string>
                                </property>
                                <property name="text">
                                 <string>Escolher</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QWidget" name="widget_16" native="true">
+                            <layout class="QHBoxLayout" name="horizontalLayout_14">
+                             <item>
+                              <widget class="QLabel" name="label_16">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="text">
+                                <string>Quantidade de navegadores simultâneos</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="parallel_pages">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="save_parallel">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(0, 170, 0);
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                               </property>
+                               <property name="text">
+                                <string>Salvar</string>
                                </property>
                               </widget>
                              </item>
