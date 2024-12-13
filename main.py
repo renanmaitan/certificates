@@ -23,6 +23,7 @@ import unicodedata
 
 # IMPORT / GUI AND MODULES AND WIDGETS
 # ///////////////////////////////////////////////////////////////
+from core.CustomDelegate import CustomItemDelegate
 from core.Searcher import Searcher
 from core.SearcherController import SearcherController
 from core.WorkerThread import Worker
@@ -68,6 +69,7 @@ class MainWindow(QMainWindow):
 
         # LEFT MENUS
         self.ui.btn_home.clicked.connect(self.buttonClick)
+        self.ui.list_btn.clicked.connect(self.buttonClick)
 
         self.show()
 
@@ -111,6 +113,69 @@ class MainWindow(QMainWindow):
         self.ui.progressBar.setMaximumWidth(0)
         self.buscados = 0
         
+        self.start_table()
+        
+        self.ui.capital_btn_list.clicked.connect(self.capitalize_list)
+        self.ui.tiny_btn_list.clicked.connect(self.to_lower_list)
+        self.ui.del_all_list.clicked.connect(self.del_all_list)
+        self.ui.del_list.clicked.connect(self.del_selected_list)
+        
+    def del_all_list(self):
+        btn = QMessageBox.warning(
+            self,
+            "Deletar Tudo",
+            "Essa ação deletará todas as linhas\nTem certeza de que deseja continuar?",
+            buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            defaultButton=QMessageBox.StandardButton.Yes
+        )
+        if btn == QMessageBox.StandardButton.Yes:
+            self.ui.list_table.setRowCount(0)
+            self.list = []
+    
+    def del_selected_list(self):
+        table = self.ui.list_table
+        selecteds = table.selectedItems()
+        if len(selecteds)>1:
+            btn = QMessageBox.warning(
+                self,
+                "Mais de uma linha está selecionada",
+                "Clicar em 'Yes' deletará todas as selecionadas. Tem certeza de que deseja continuar?",
+                buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                defaultButton=QMessageBox.StandardButton.Yes
+            )
+            if btn == QMessageBox.StandardButton.No:
+                return
+        for item in selecteds:
+            table.removeRow(item.row())
+        self.on_table_change()
+        
+    def start_table(self):
+        table = self.ui.list_table
+        table.setItemDelegate(CustomItemDelegate())
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        table.verticalHeader().setVisible(False)
+        table.itemChanged.connect(self.on_table_change)
+        
+    def on_table_change(self, item):
+        table = self.ui.list_table
+        self.list = []
+        cols = ["name", "birth", "cpf", "tel", "email"]
+        for row in range(table.rowCount()):
+            line = {}
+            for col in range(table.columnCount()):
+                value = table.item(row,col).text()
+                line[cols[col]] = value
+            self.list.append(line)
+            
+    def add_item(self, obj: dict):
+        table = self.ui.list_table
+        table.blockSignals(True)
+        table.setRowCount(table.rowCount()+1)
+        cols = ["name", "birth", "cpf", "tel", "email"]
+        for col in range(table.columnCount()):
+            table.setItem(table.rowCount()-1,col,QTableWidgetItem(obj[cols[col]]))
+        table.blockSignals(False)
+
     def handle_error(self, error):
         self.progress_queue = deque()
         self.progress_queue.append(100)
@@ -205,18 +270,19 @@ class MainWindow(QMainWindow):
             return word
         return str.capitalize(word)
         
-    def capitalize(self, inv=False):
-        lines = self.ui.mult_input.toPlainText().splitlines()
-        new_values = []
-        for i, line in enumerate(lines):
-            splitted = line.split()
-            for j, value in enumerate(splitted):
-                if not value.isalpha():
-                    break
-                value = self.capitalize_word(value)
-                splitted[j] = value
-            new_values.append(" ".join(splitted))
-        self.ui.mult_input.setPlainText("\n".join(new_values))
+    def capitalize_list(self):
+        table = self.ui.list_table
+        for row in range(table.rowCount()):
+            new_word = []
+            for word in table.item(row,0).text().split():
+                new_word.append(self.capitalize_word(word))
+            table.setItem(row,0,QTableWidgetItem(" ".join(new_word)))
+            
+    def to_lower_list(self):
+        table = self.ui.list_table
+        for row in range(table.rowCount()):
+            for col in range(table.columnCount()):
+                table.setItem(row,col,QTableWidgetItem(str.lower(table.item(row,col).text())))
         
     def to_lower(self):
         self.ui.mult_input.setPlainText(str.lower(self.ui.mult_input.toPlainText()))
@@ -235,14 +301,15 @@ class MainWindow(QMainWindow):
                     defaultButton=QMessageBox.StandardButton.Ok
                 )
                 return
-            self.list.append(
-                {
+            new_obj = {
+                    "name": "",
                     "birth": self.ui.birth_input.text(),
                     "cpf": self.ui.cpf_input.text(),
                     "tel": self.ui.tel_input.text() if self.ui.tel_input else "",
                     "email": self.ui.email_input.text() if self.ui.email_input else ""  
                 }
-            )
+            self.list.append(new_obj)
+            self.add_item(new_obj)
             print(self.list)
             inputs = [self.ui.birth_input, self.ui.cpf_input, self.ui.tel_input, self.ui.email_input]
             for input in inputs:
@@ -291,15 +358,15 @@ class MainWindow(QMainWindow):
                     defaultButton=QMessageBox.StandardButton.Ok
                 )
                 return
-            to_add.append(
-                {
+            new_obj = {
+                    "name": "",
                     "birth": values[0],
                     "cpf": values[1],
                     "tel": values[2],
                     "email": values[3]
                 }
-            )
-        self.list.extend(to_add)
+            self.list.append(new_obj)
+            self.add_item(new_obj)
         self.ui.mult_input.setPlainText("")
         print(self.list)
 
@@ -313,6 +380,12 @@ class MainWindow(QMainWindow):
             self.ui.stackedWidget.setCurrentWidget(self.ui.home)
             UIFunctions.resetStyle(self, btnName)
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
+            
+        if btnName == "list_btn":
+            self.ui.stackedWidget.setCurrentWidget(self.ui.list_view)
+            UIFunctions.resetStyle(self, btnName)
+            btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
+            
 
     def resizeEvent(self, event):
         UIFunctions.resize_grips(self) #type: ignore
