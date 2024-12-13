@@ -121,6 +121,28 @@ class MainWindow(QMainWindow):
         self.ui.del_all_list.clicked.connect(self.del_all_list)
         self.ui.del_list.clicked.connect(self.del_selected_list)
         
+    def detect_ctrl_c(self, event):
+        if event.matches(QKeySequence.StandardKey.Copy):
+            self.copy_selecteds()
+        else:
+            super(QTableWidget, self.ui.list_table).keyPressEvent(event)
+
+    def copy_selecteds(self):
+        ranges = self.ui.list_table.selectedRanges()
+        if not ranges:
+            return
+        tabela_texto = ""
+        for range_ in ranges:
+            for row in range(range_.topRow(), range_.bottomRow() + 1):
+                linha = []
+                for col in range(range_.leftColumn(), range_.rightColumn() + 1):
+                    item = self.ui.list_table.item(row, col)
+                    linha.append(item.text() if item else "")
+                tabela_texto += "\t".join(linha) + "\n"
+
+        clipboard = QGuiApplication.clipboard()
+        clipboard.setText(tabela_texto)
+        
     def del_all_list(self):
         btn = QMessageBox.warning(
             self,
@@ -156,6 +178,8 @@ class MainWindow(QMainWindow):
         table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         table.verticalHeader().setVisible(False)
         table.itemChanged.connect(self.on_table_change)
+        table.setSelectionMode(QTableWidget.SelectionMode.ContiguousSelection)
+        table.keyPressEvent = self.detect_ctrl_c
         
     def on_table_change(self, item=None):
         table = self.ui.list_table
