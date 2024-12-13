@@ -1282,7 +1282,7 @@ Button */
                       <string notr="true">background: transparent;</string>
                      </property>
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="home">
                       <property name="styleSheet">
@@ -1811,7 +1811,135 @@ border-radius: 5px;</string>
                        </item>
                       </layout>
                      </widget>
-                     <widget class="QWidget" name="page"/>
+                     <widget class="QWidget" name="page">
+                      <layout class="QVBoxLayout" name="verticalLayout_10">
+                       <item>
+                        <widget class="QWidget" name="widget_8" native="true">
+                         <layout class="QVBoxLayout" name="verticalLayout_11">
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QLabel" name="label_11">
+                            <property name="font">
+                             <font>
+                              <pointsize>20</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Lista de Pessoas</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTableWidget" name="list_table">
+                            <column>
+                             <property name="text">
+                              <string>Nome</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Data de Nascimento</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>CPF</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Telefone</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Email</string>
+                             </property>
+                            </column>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QWidget" name="widget_9" native="true">
+                            <layout class="QHBoxLayout" name="horizontalLayout_10">
+                             <item>
+                              <widget class="QPushButton" name="capital_btn_list">
+                               <property name="toolTip">
+                                <string>Tranforma a primeira letra dos nomes próprios em maiúsculo</string>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(60, 61, 93);
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                               </property>
+                               <property name="text">
+                                <string>Maiúsculas</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="tiny_btn_list">
+                               <property name="toolTip">
+                                <string>Transforma tudo em minúsculo</string>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(0, 85, 0);
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                               </property>
+                               <property name="text">
+                                <string>Minúsculas</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="del_all_list">
+                               <property name="toolTip">
+                                <string>Deleta todas as linhas</string>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: #2d2226;
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                               </property>
+                               <property name="text">
+                                <string>Deletar Tudo</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="del_list">
+                               <property name="toolTip">
+                                <string>Deleta a linha selecionada</string>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(170, 0, 0);
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                               </property>
+                               <property name="text">
+                                <string>Deletar</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
                     </widget>
                    </item>
                   </layout>

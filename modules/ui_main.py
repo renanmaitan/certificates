@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QLineEdit, QMainWindow, QPlainTextEdit, QProgressBar,
-    QPushButton, QSizePolicy, QStackedWidget, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
+    QLabel, QLineEdit, QMainWindow, QPlainTextEdit,
+    QProgressBar, QPushButton, QSizePolicy, QStackedWidget,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -1151,6 +1151,91 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.home)
         self.page = QWidget()
         self.page.setObjectName(u"page")
+        self.verticalLayout_10 = QVBoxLayout(self.page)
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.widget_8 = QWidget(self.page)
+        self.widget_8.setObjectName(u"widget_8")
+        self.verticalLayout_11 = QVBoxLayout(self.widget_8)
+        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
+        self.label_11 = QLabel(self.widget_8)
+        self.label_11.setObjectName(u"label_11")
+        font8 = QFont()
+        font8.setPointSize(20)
+        self.label_11.setFont(font8)
+
+        self.verticalLayout_11.addWidget(self.label_11, 0, Qt.AlignHCenter)
+
+        self.list_table = QTableWidget(self.widget_8)
+        if (self.list_table.columnCount() < 5):
+            self.list_table.setColumnCount(5)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.list_table.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.list_table.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.list_table.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        self.list_table.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        self.list_table.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        self.list_table.setObjectName(u"list_table")
+
+        self.verticalLayout_11.addWidget(self.list_table)
+
+        self.widget_9 = QWidget(self.widget_8)
+        self.widget_9.setObjectName(u"widget_9")
+        self.horizontalLayout_10 = QHBoxLayout(self.widget_9)
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.capital_btn_list = QPushButton(self.widget_9)
+        self.capital_btn_list.setObjectName(u"capital_btn_list")
+        self.capital_btn_list.setStyleSheet(u"background-color: rgb(60, 61, 93);\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.horizontalLayout_10.addWidget(self.capital_btn_list)
+
+        self.tiny_btn_list = QPushButton(self.widget_9)
+        self.tiny_btn_list.setObjectName(u"tiny_btn_list")
+        self.tiny_btn_list.setStyleSheet(u"background-color: rgb(0, 85, 0);\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.horizontalLayout_10.addWidget(self.tiny_btn_list)
+
+        self.del_all_list = QPushButton(self.widget_9)
+        self.del_all_list.setObjectName(u"del_all_list")
+        self.del_all_list.setStyleSheet(u"background-color: #2d2226;\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.horizontalLayout_10.addWidget(self.del_all_list)
+
+        self.del_list = QPushButton(self.widget_9)
+        self.del_list.setObjectName(u"del_list")
+        self.del_list.setStyleSheet(u"background-color: rgb(170, 0, 0);\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.horizontalLayout_10.addWidget(self.del_list)
+
+
+        self.verticalLayout_11.addWidget(self.widget_9, 0, Qt.AlignHCenter)
+
+
+        self.verticalLayout_10.addWidget(self.widget_8)
+
         self.stackedWidget.addWidget(self.page)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)
@@ -1174,11 +1259,11 @@ class Ui_MainWindow(object):
         self.creditsLabel = QLabel(self.bottomBar)
         self.creditsLabel.setObjectName(u"creditsLabel")
         self.creditsLabel.setMaximumSize(QSize(16777215, 16))
-        font8 = QFont()
-        font8.setFamilies([u"Segoe UI"])
-        font8.setBold(False)
-        font8.setItalic(False)
-        self.creditsLabel.setFont(font8)
+        font9 = QFont()
+        font9.setFamilies([u"Segoe UI"])
+        font9.setBold(False)
+        font9.setItalic(False)
+        self.creditsLabel.setFont(font9)
         self.creditsLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.horizontalLayout_5.addWidget(self.creditsLabel)
@@ -1214,7 +1299,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1267,6 +1352,33 @@ class Ui_MainWindow(object):
         self.tiny_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Transforma tudo em min\u00fasculo", None))
 #endif // QT_CONFIG(tooltip)
         self.tiny_btn.setText(QCoreApplication.translate("MainWindow", u"min\u00fasculas", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Lista de Pessoas", None))
+        ___qtablewidgetitem = self.list_table.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Nome", None));
+        ___qtablewidgetitem1 = self.list_table.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Data de Nascimento", None));
+        ___qtablewidgetitem2 = self.list_table.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"CPF", None));
+        ___qtablewidgetitem3 = self.list_table.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Telefone", None));
+        ___qtablewidgetitem4 = self.list_table.horizontalHeaderItem(4)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Email", None));
+#if QT_CONFIG(tooltip)
+        self.capital_btn_list.setToolTip(QCoreApplication.translate("MainWindow", u"Tranforma a primeira letra dos nomes pr\u00f3prios em mai\u00fasculo", None))
+#endif // QT_CONFIG(tooltip)
+        self.capital_btn_list.setText(QCoreApplication.translate("MainWindow", u"Mai\u00fasculas", None))
+#if QT_CONFIG(tooltip)
+        self.tiny_btn_list.setToolTip(QCoreApplication.translate("MainWindow", u"Transforma tudo em min\u00fasculo", None))
+#endif // QT_CONFIG(tooltip)
+        self.tiny_btn_list.setText(QCoreApplication.translate("MainWindow", u"Min\u00fasculas", None))
+#if QT_CONFIG(tooltip)
+        self.del_all_list.setToolTip(QCoreApplication.translate("MainWindow", u"Deleta todas as linhas", None))
+#endif // QT_CONFIG(tooltip)
+        self.del_all_list.setText(QCoreApplication.translate("MainWindow", u"Deletar Tudo", None))
+#if QT_CONFIG(tooltip)
+        self.del_list.setToolTip(QCoreApplication.translate("MainWindow", u"Deleta a linha selecionada", None))
+#endif // QT_CONFIG(tooltip)
+        self.del_list.setText(QCoreApplication.translate("MainWindow", u"Deletar", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"Developed by Renan A. Maitan", None))
         self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.3", None))
     # retranslateUi
