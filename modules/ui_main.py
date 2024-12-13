@@ -855,17 +855,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
-        self.progressBar = QProgressBar(self.widget)
-        self.progressBar.setObjectName(u"progressBar")
-        self.progressBar.setValue(24)
-
-        self.verticalLayout.addWidget(self.progressBar)
-
-        self.status = QLabel(self.widget)
-        self.status.setObjectName(u"status")
-
-        self.verticalLayout.addWidget(self.status, 0, Qt.AlignHCenter)
-
         self.widget_2 = QWidget(self.widget)
         self.widget_2.setObjectName(u"widget_2")
         self.horizontalLayout_6 = QHBoxLayout(self.widget_2)
@@ -1157,13 +1146,32 @@ class Ui_MainWindow(object):
         self.widget_8.setObjectName(u"widget_8")
         self.verticalLayout_11 = QVBoxLayout(self.widget_8)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
-        self.label_11 = QLabel(self.widget_8)
+        self.widget_11 = QWidget(self.widget_8)
+        self.widget_11.setObjectName(u"widget_11")
+        self.widget_11.setMinimumSize(QSize(400, 0))
+        self.verticalLayout_12 = QVBoxLayout(self.widget_11)
+        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
+        self.label_11 = QLabel(self.widget_11)
         self.label_11.setObjectName(u"label_11")
         font8 = QFont()
         font8.setPointSize(20)
         self.label_11.setFont(font8)
 
-        self.verticalLayout_11.addWidget(self.label_11, 0, Qt.AlignHCenter)
+        self.verticalLayout_12.addWidget(self.label_11, 0, Qt.AlignHCenter)
+
+        self.progressBar = QProgressBar(self.widget_11)
+        self.progressBar.setObjectName(u"progressBar")
+        self.progressBar.setValue(24)
+
+        self.verticalLayout_12.addWidget(self.progressBar)
+
+        self.status = QLabel(self.widget_11)
+        self.status.setObjectName(u"status")
+
+        self.verticalLayout_12.addWidget(self.status, 0, Qt.AlignHCenter)
+
+
+        self.verticalLayout_11.addWidget(self.widget_11, 0, Qt.AlignHCenter)
 
         self.list_table = QTableWidget(self.widget_8)
         if (self.list_table.columnCount() < 5):
@@ -1181,6 +1189,11 @@ class Ui_MainWindow(object):
         self.list_table.setObjectName(u"list_table")
 
         self.verticalLayout_11.addWidget(self.list_table)
+
+        self.widget_10 = QWidget(self.widget_8)
+        self.widget_10.setObjectName(u"widget_10")
+
+        self.verticalLayout_11.addWidget(self.widget_10)
 
         self.find_btn = QPushButton(self.widget_8)
         self.find_btn.setObjectName(u"find_btn")
@@ -1337,7 +1350,6 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"PyCertificate", None))
-        self.status.setText(QCoreApplication.translate("MainWindow", u"not started", None))
         self.generate_word.setText(QCoreApplication.translate("MainWindow", u"Gerar certificados Word", None))
         self.generate_ppt.setText(QCoreApplication.translate("MainWindow", u"Gerar certificados PowerPoint", None))
         self.open_word_folder.setText("")
@@ -1364,6 +1376,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.tiny_btn.setText(QCoreApplication.translate("MainWindow", u"min\u00fasculas", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Lista de Pessoas", None))
+        self.status.setText(QCoreApplication.translate("MainWindow", u"not started", None))
         ___qtablewidgetitem = self.list_table.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Nome", None));
         ___qtablewidgetitem1 = self.list_table.horizontalHeaderItem(1)

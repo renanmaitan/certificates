@@ -1312,20 +1312,6 @@ Button */
                            </widget>
                           </item>
                           <item>
-                           <widget class="QProgressBar" name="progressBar">
-                            <property name="value">
-                             <number>24</number>
-                            </property>
-                           </widget>
-                          </item>
-                          <item alignment="Qt::AlignHCenter">
-                           <widget class="QLabel" name="status">
-                            <property name="text">
-                             <string>not started</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
                            <widget class="QWidget" name="widget_2" native="true">
                             <layout class="QHBoxLayout" name="horizontalLayout_6">
                              <item>
@@ -1817,15 +1803,41 @@ border-radius: 5px;</string>
                         <widget class="QWidget" name="widget_8" native="true">
                          <layout class="QVBoxLayout" name="verticalLayout_11">
                           <item alignment="Qt::AlignHCenter">
-                           <widget class="QLabel" name="label_11">
-                            <property name="font">
-                             <font>
-                              <pointsize>20</pointsize>
-                             </font>
+                           <widget class="QWidget" name="widget_11" native="true">
+                            <property name="minimumSize">
+                             <size>
+                              <width>400</width>
+                              <height>0</height>
+                             </size>
                             </property>
-                            <property name="text">
-                             <string>Lista de Pessoas</string>
-                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_12">
+                             <item alignment="Qt::AlignHCenter">
+                              <widget class="QLabel" name="label_11">
+                               <property name="font">
+                                <font>
+                                 <pointsize>20</pointsize>
+                                </font>
+                               </property>
+                               <property name="text">
+                                <string>Lista de Pessoas</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QProgressBar" name="progressBar">
+                               <property name="value">
+                                <number>24</number>
+                               </property>
+                              </widget>
+                             </item>
+                             <item alignment="Qt::AlignHCenter">
+                              <widget class="QLabel" name="status">
+                               <property name="text">
+                                <string>not started</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
                            </widget>
                           </item>
                           <item>
@@ -1856,6 +1868,9 @@ border-radius: 5px;</string>
                              </property>
                             </column>
                            </widget>
+                          </item>
+                          <item>
+                           <widget class="QWidget" name="widget_10" native="true"/>
                           </item>
                           <item alignment="Qt::AlignHCenter">
                            <widget class="QPushButton" name="find_btn">

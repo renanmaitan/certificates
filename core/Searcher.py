@@ -133,9 +133,10 @@ class Searcher():
                     elif "No do CPF" in linha:
                         n_cpf = linha.split(":")[1].strip()
                 return [{
+                    "old_cpf": cpf,
                     "cpf": n_cpf,
-                    "nome": nome,
-                    "nasc": data
+                    "name": nome,
+                    "birth": data
                 }]
             except Exception as e:
                 return [{

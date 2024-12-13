@@ -15,10 +15,11 @@
 # ///////////////////////////////////////////////////////////////
 
 from collections import deque
+import json
 import sys
 import os
 import platform
-from typing import List, Union
+from typing import Dict, List, Union
 import unicodedata
 
 # IMPORT / GUI AND MODULES AND WIDGETS
@@ -100,7 +101,7 @@ class MainWindow(QMainWindow):
         self.ui.birth_input.textChanged.connect(self.format_birth_input)
         self.ui.tel_input.textChanged.connect(self.format_tel_input)
         
-        self.ui.generate_word.clicked.connect(self.start_search)
+        self.ui.find_btn.clicked.connect(self.start_search)
         
         self.threadpool = QThreadPool()
         self.progress_queue = deque()
@@ -156,7 +157,7 @@ class MainWindow(QMainWindow):
         table.verticalHeader().setVisible(False)
         table.itemChanged.connect(self.on_table_change)
         
-    def on_table_change(self, item):
+    def on_table_change(self, item=None):
         table = self.ui.list_table
         self.list = []
         cols = ["name", "birth", "cpf", "tel", "email"]
@@ -203,6 +204,17 @@ class MainWindow(QMainWindow):
         # worker.signals.finished.connect(self.finished)
         self.threadpool.start(worker)
         
+    @Slot(str)
+    def update_item(self, new_item_json: str):
+        new_item = json.loads(new_item_json)
+        table = self.ui.list_table
+        cols = ["name", "birth", "cpf"]
+        for row in range(table.rowCount()):
+            if table.item(row,2).text().replace(".","").replace("-","") == new_item["old_cpf"].replace(".","").replace("-",""):
+                for col in range(table.columnCount()-2):
+                    table.setItem(row,col,QTableWidgetItem(new_item[cols[col]]))
+        self.on_table_change()
+        
     def _start_search(self):
         pessoas = []
         for pessoa in self.list:
@@ -218,9 +230,12 @@ class MainWindow(QMainWindow):
             )
             self.status_callback(f"Nomes buscados 0/{qtt}", 5)
             percentage = 80/qtt
-            def result(result):
+            def result(result: List[Dict[str, str]]):
                 self.buscados += len(result)
                 self.status_callback(f"Nomes buscados: {self.buscados}/{qtt}", len(result)*percentage)
+                for value in result:
+                    value_json = json.dumps(value)
+                    QMetaObject.invokeMethod(self, "update_item", Qt.ConnectionType.QueuedConnection, Q_ARG(str, value_json))
                 print("Resultado: ", result)
             if btn == "&Yes":
                 sc.search_list(pessoas, lambda x: print("Subtitle: ", x), result)
@@ -266,7 +281,7 @@ class MainWindow(QMainWindow):
         
     def capitalize_word(self, word):
         word = str.lower(word)
-        if word == "da" or word =="do" or word == "dos" or word =="das":
+        if word == "da" or word =="do" or word == "dos" or word =="das" or word == "de" or word == "des":
             return word
         return str.capitalize(word)
         
