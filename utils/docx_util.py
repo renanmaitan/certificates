@@ -1,5 +1,5 @@
 from docx import Document
-
+import comtypes.client
 
 def replace_placeholders(caminho_arquivo, nome, cpf, caminho_saida):
     doc = Document(caminho_arquivo)
@@ -23,3 +23,13 @@ def replace_placeholders(caminho_arquivo, nome, cpf, caminho_saida):
                         replace_in_runs(par.runs, "{CPF}", cpf)
 
     doc.save(caminho_saida)
+    
+def save_as_pdf(caminho_docx, caminho_pdf):
+    word = comtypes.client.CreateObject("Word.Application")
+    word.Visible = False
+
+    doc = word.Documents.Open(caminho_docx)
+
+    doc.SaveAs(caminho_pdf, FileFormat=17)
+    doc.Close()
+    word.Quit()

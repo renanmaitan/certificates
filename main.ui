@@ -2279,6 +2279,24 @@ border-radius: 5px;</string>
                             </layout>
                            </widget>
                           </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QWidget" name="generate_pdf" native="true">
+                            <layout class="QHBoxLayout" name="horizontalLayout_15">
+                             <item>
+                              <widget class="QCheckBox" name="checkBox">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="text">
+                                <string>Gerar PDF</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
                          </layout>
                         </widget>
                        </item>

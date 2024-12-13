@@ -1,3 +1,4 @@
+import comtypes.client
 from pptx import Presentation
 
 def replace_placeholders(caminho_arquivo, nome, cpf, caminho_saida):
@@ -12,3 +13,13 @@ def replace_placeholders(caminho_arquivo, nome, cpf, caminho_saida):
                             run.text = run.text.replace("{NOME}", nome).replace("{CPF}", cpf)
 
     prs.save(caminho_saida)
+    
+def save_as_pdf(caminho_pptx, caminho_pdf):
+    powerpoint = comtypes.client.CreateObject("PowerPoint.Application")
+    powerpoint.Visible = 1
+
+    presentation = powerpoint.Presentations.Open(caminho_pptx, WithWindow=False)
+
+    presentation.SaveAs(caminho_pdf, FileFormat=32)
+    presentation.Close()
+    powerpoint.Quit()

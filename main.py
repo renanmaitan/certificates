@@ -157,6 +157,7 @@ class MainWindow(QMainWindow):
     def save_parallel(self):
         cfgs = self.get_cfgs()
         cfgs["parallel"] = int(self.ui.parallel_pages.text())
+        self.save_configs(cfgs)
         
     def open_pptx_folder(self):
         os.startfile(self.pptx_folder)
@@ -175,10 +176,14 @@ class MainWindow(QMainWindow):
     def _generate_word(self, callback):
         percentage = 99/len(self.list)
         for i, person in enumerate(self.list):
-            callback(f'Gerando para: {person["name"]}', (i+1)*percentage)
+            callback(f'Gerando word para: {person["name"]}', 0)
             model_path = self.ui.word_model.text()
             output_path = self.word_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".docx")
             docx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
+            callback(f'Gerano word para: {person["name"]}', (i+1)*(percentage/2))
+            callback(f'Gerando pdf para: {person["name"]}', 0)
+            docx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
+            callback(f'Gerano pdf para: {person["name"]}', (i+1)*(percentage/2))
         callback("Finalizado", 100)
     
     def generate_pptx(self):
@@ -192,10 +197,14 @@ class MainWindow(QMainWindow):
     def _generate_pptx(self, callback):
         percentage = 99/len(self.list)
         for i, person in enumerate(self.list):
-            callback(f'Gerando para: {person["name"]}', (i+1)*percentage)
+            callback(f'Gerando Powerpoint para: {person["name"]}', 0)
             model_path = self.ui.powerpoint_model.text()
             output_path = self.pptx_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".pptx")
             pptx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
+            callback(f'Gerado Powerpoint para: {person["name"]}', (i+1)*(percentage/2))
+            callback(f'Gerando pdf para: {person["name"]}', 0)
+            pptx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
+            callback(f'Gerado pdf para: {person["name"]}', (i+1)*(percentage/2))
         callback("Finalizado", 100)
         
     def start_configs(self):
