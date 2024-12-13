@@ -159,6 +159,7 @@ class MainWindow(QMainWindow):
         os.startfile(self.word_folder)
         
     def generate_word(self):
+        self.ui.progressBar_home.setValue(0)
         self.ui.generate_word.setEnabled(False)
         worker = Worker(self._generate_word, self.status_callback_home)
         worker.signals.error.connect(self.handle_error_home)
@@ -172,8 +173,10 @@ class MainWindow(QMainWindow):
             model_path = self.ui.word_model.text()
             output_path = self.word_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".docx")
             docx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
+        callback("Finalizado", 100)
     
     def generate_pptx(self):
+        self.ui.progressBar_home.setValue(0)
         self.ui.generate_ppt.setEnabled(False)
         worker = Worker(self._generate_pptx, self.status_callback_home)
         worker.signals.error.connect(self.handle_error_home)
@@ -187,6 +190,7 @@ class MainWindow(QMainWindow):
             model_path = self.ui.powerpoint_model.text()
             output_path = self.pptx_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".pptx")
             pptx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
+        callback("Finalizado", 100)
         
     def start_configs(self):
         cfgs = self.get_cfgs()
@@ -365,6 +369,7 @@ class MainWindow(QMainWindow):
         
     def _start_search(self):
         pessoas = []
+        self.buscados = 0
         for pessoa in self.list:
             pessoas.append((pessoa["cpf"].replace(".","").replace("-",""), pessoa["birth"].replace("/","")))
         if len(pessoas)>0:
@@ -376,15 +381,14 @@ class MainWindow(QMainWindow):
                 buttons=[QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No],
                 defaultButton=QMessageBox.StandardButton.Yes
             )
-            self.status_callback(f"Nomes buscados 0/{qtt}", 5)
-            percentage = 80/qtt
+            self.status_callback(f"Nomes buscados 0/{qtt}", 0)
+            percentage = 100/qtt
             def result(result: List[Dict[str, str]]):
                 self.buscados += len(result)
-                self.status_callback(f"Nomes buscados: {self.buscados}/{qtt}", len(result)*percentage)
+                self.status_callback(f"Nomes buscados: {self.buscados}/{qtt}", len(result)*percentage if self.buscados!=qtt else 100)
                 for value in result:
                     value_json = json.dumps(value)
                     QMetaObject.invokeMethod(self, "update_item", Qt.ConnectionType.QueuedConnection, Q_ARG(str, value_json))
-                print("Resultado: ", result)
             if btn == "&Yes":
                 sc.search_list(pessoas, lambda x: print("Subtitle: ", x), result)
         
@@ -394,7 +398,7 @@ class MainWindow(QMainWindow):
         if len(text) > 11:
             text=text[:11]
         if len(text) > 2:
-            text = f"({text[:2]}) " + text[2:]
+            text = f"{text[:2]} " + text[2:]
         if len(text) > 10:
             text = text[:10] + '-' + text[10:]
         self.ui.tel_input.setText(text)
@@ -473,7 +477,6 @@ class MainWindow(QMainWindow):
                 }
             self.list.append(new_obj)
             self.add_item(new_obj)
-            print(self.list)
             inputs = [self.ui.birth_input, self.ui.cpf_input, self.ui.tel_input, self.ui.email_input]
             for input in inputs:
                 input.setText("")
@@ -487,7 +490,6 @@ class MainWindow(QMainWindow):
         
     def add_mult(self):
         lines = self.ui.mult_input.toPlainText().splitlines()
-        to_add = []
         for i, line in enumerate(lines):
             values = []
             splitted = line.split()
@@ -531,7 +533,6 @@ class MainWindow(QMainWindow):
             self.list.append(new_obj)
             self.add_item(new_obj)
         self.ui.mult_input.setPlainText("")
-        print(self.list)
 
     def buttonClick(self):
         # GET BUTTON CLICKED
