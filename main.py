@@ -146,11 +146,13 @@ class MainWindow(QMainWindow):
         self.word_folder = self.documents_folder / "PyCertificate" / "Word"
         os.makedirs(self.word_folder, exist_ok=True)
         self.ui.open_word_folder.clicked.connect(self.open_word_folder)
+        self.ui.open_word_pdf_folder.clicked.connect(self.open_word_folder)
         
         self.ui.generate_ppt.clicked.connect(self.generate_pptx)
         self.pptx_folder = self.documents_folder / "PyCertificate" / "Powerpoint"
         os.makedirs(self.pptx_folder, exist_ok=True)
         self.ui.open_ppt_folder.clicked.connect(self.open_pptx_folder)
+        self.ui.open_pdf_ppt_folder.clicked.connect(self.open_pptx_folder)
         
         self.ui.save_parallel.clicked.connect(self.save_parallel)
         
