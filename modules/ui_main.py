@@ -1149,11 +1149,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addWidget(self.widget_4)
 
         self.stackedWidget.addWidget(self.home)
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        self.verticalLayout_10 = QVBoxLayout(self.page)
+        self.list_view = QWidget()
+        self.list_view.setObjectName(u"list_view")
+        self.verticalLayout_10 = QVBoxLayout(self.list_view)
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
-        self.widget_8 = QWidget(self.page)
+        self.widget_8 = QWidget(self.list_view)
         self.widget_8.setObjectName(u"widget_8")
         self.verticalLayout_11 = QVBoxLayout(self.widget_8)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
@@ -1181,6 +1181,17 @@ class Ui_MainWindow(object):
         self.list_table.setObjectName(u"list_table")
 
         self.verticalLayout_11.addWidget(self.list_table)
+
+        self.find_btn = QPushButton(self.widget_8)
+        self.find_btn.setObjectName(u"find_btn")
+        self.find_btn.setStyleSheet(u"background-color: rgb(169, 127, 209);\n"
+"color: #fff;\n"
+"padding: 5px;\n"
+"padding-right: 15px;\n"
+"padding-left: 15px;\n"
+"border-radius: 5px;")
+
+        self.verticalLayout_11.addWidget(self.find_btn, 0, Qt.AlignHCenter)
 
         self.widget_9 = QWidget(self.widget_8)
         self.widget_9.setObjectName(u"widget_9")
@@ -1236,7 +1247,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_10.addWidget(self.widget_8)
 
-        self.stackedWidget.addWidget(self.page)
+        self.stackedWidget.addWidget(self.list_view)
 
         self.verticalLayout_15.addWidget(self.stackedWidget)
 
@@ -1363,6 +1374,7 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Telefone", None));
         ___qtablewidgetitem4 = self.list_table.horizontalHeaderItem(4)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Email", None));
+        self.find_btn.setText(QCoreApplication.translate("MainWindow", u"Buscar Dados", None))
 #if QT_CONFIG(tooltip)
         self.capital_btn_list.setToolTip(QCoreApplication.translate("MainWindow", u"Tranforma a primeira letra dos nomes pr\u00f3prios em mai\u00fasculo", None))
 #endif // QT_CONFIG(tooltip)
@@ -1380,6 +1392,6 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.del_list.setText(QCoreApplication.translate("MainWindow", u"Deletar", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"Developed by Renan A. Maitan", None))
-        self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.3", None))
+        self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.0", None))
     # retranslateUi
 

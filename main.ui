@@ -1811,7 +1811,7 @@ border-radius: 5px;</string>
                        </item>
                       </layout>
                      </widget>
-                     <widget class="QWidget" name="page">
+                     <widget class="QWidget" name="list_view">
                       <layout class="QVBoxLayout" name="verticalLayout_10">
                        <item>
                         <widget class="QWidget" name="widget_8" native="true">
@@ -1855,6 +1855,21 @@ border-radius: 5px;</string>
                               <string>Email</string>
                              </property>
                             </column>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QPushButton" name="find_btn">
+                            <property name="styleSheet">
+                             <string notr="true">background-color: rgb(169, 127, 209);
+color: #fff;
+padding: 5px;
+padding-right: 15px;
+padding-left: 15px;
+border-radius: 5px;</string>
+                            </property>
+                            <property name="text">
+                             <string>Buscar Dados</string>
+                            </property>
                            </widget>
                           </item>
                           <item alignment="Qt::AlignHCenter">
@@ -2011,7 +2026,7 @@ border-radius: 5px;</string>
                 <item>
                  <widget class="QLabel" name="version">
                   <property name="text">
-                   <string>v1.0.3</string>
+                   <string>v1.0.0</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
