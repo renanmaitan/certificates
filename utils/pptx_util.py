@@ -1,6 +1,6 @@
 from pptx import Presentation
 
-def substituir_placeholders_pptx(caminho_arquivo, nome, cpf, caminho_saida):
+def replace_placeholders(caminho_arquivo, nome, cpf, caminho_saida):
     prs = Presentation(caminho_arquivo)
 
     for slide in prs.slides:

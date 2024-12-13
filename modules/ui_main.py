@@ -868,6 +868,17 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
+        self.progressBar_home = QProgressBar(self.widget)
+        self.progressBar_home.setObjectName(u"progressBar_home")
+        self.progressBar_home.setValue(24)
+
+        self.verticalLayout.addWidget(self.progressBar_home)
+
+        self.status_home = QLabel(self.widget)
+        self.status_home.setObjectName(u"status_home")
+
+        self.verticalLayout.addWidget(self.status_home, 0, Qt.AlignHCenter)
+
         self.widget_2 = QWidget(self.widget)
         self.widget_2.setObjectName(u"widget_2")
         self.horizontalLayout_6 = QHBoxLayout(self.widget_2)
@@ -1458,7 +1469,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1486,6 +1497,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"PyCertificate", None))
+        self.status_home.setText(QCoreApplication.translate("MainWindow", u"not started", None))
         self.generate_word.setText(QCoreApplication.translate("MainWindow", u"Gerar certificados Word", None))
         self.generate_ppt.setText(QCoreApplication.translate("MainWindow", u"Gerar certificados PowerPoint", None))
         self.open_word_folder.setText("")

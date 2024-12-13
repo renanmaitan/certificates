@@ -16,6 +16,7 @@
 
 from collections import deque
 import json
+from pathlib import Path
 import sys
 import os
 import platform
@@ -29,6 +30,7 @@ from core.Searcher import Searcher
 from core.SearcherController import SearcherController
 from core.WorkerThread import Worker
 from modules import *
+from utils import docx_util, pptx_util
 from widgets import *
 from PySide6.QtCore import QRegularExpression
 from PySide6.QtGui import QRegularExpressionValidator
@@ -103,6 +105,14 @@ class MainWindow(QMainWindow):
         
         self.ui.find_btn.clicked.connect(self.start_search)
         
+        self.threadpool_home = QThreadPool()
+        self.progress_queue_home = deque()
+        self.timer_home = QTimer(self)
+        self.timer_home.timeout.connect(self.process_progress_queue_home)
+        self.timer_home.start(100)
+        self.status_percentage_home = 0
+        self.ui.progressBar_home.setValue(0)
+        
         self.threadpool = QThreadPool()
         self.progress_queue = deque()
         self.timer = QTimer(self)
@@ -129,6 +139,54 @@ class MainWindow(QMainWindow):
         self.ui.open_name_list.clicked.connect(self.buttonClick)
         
         self.ui.cfg_btn.clicked.connect(self.buttonClick)
+            
+        self.documents_folder = Path.home() / "Documents"
+        
+        self.ui.generate_word.clicked.connect(self.generate_word)
+        self.word_folder = self.documents_folder / "PyCertificate" / "Word"
+        os.makedirs(self.word_folder, exist_ok=True)
+        self.ui.open_word_folder.clicked.connect(self.open_word_folder)
+        
+        self.ui.generate_ppt.clicked.connect(self.generate_pptx)
+        self.pptx_folder = self.documents_folder / "PyCertificate" / "Powerpoint"
+        os.makedirs(self.pptx_folder, exist_ok=True)
+        self.ui.open_ppt_folder.clicked.connect(self.open_pptx_folder)
+        
+    def open_pptx_folder(self):
+        os.startfile(self.pptx_folder)
+        
+    def open_word_folder(self):
+        os.startfile(self.word_folder)
+        
+    def generate_word(self):
+        self.ui.generate_word.setEnabled(False)
+        worker = Worker(self._generate_word, self.status_callback_home)
+        worker.signals.error.connect(self.handle_error_home)
+        worker.signals.finished.connect(lambda: self.ui.generate_word.setEnabled(True))
+        self.threadpool.start(worker)
+
+    def _generate_word(self, callback):
+        percentage = 99/len(self.list)
+        for i, person in enumerate(self.list):
+            callback(f'Gerando para: {person["name"]}', (i+1)*percentage)
+            model_path = self.ui.word_model.text()
+            output_path = self.word_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".docx")
+            docx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
+    
+    def generate_pptx(self):
+        self.ui.generate_ppt.setEnabled(False)
+        worker = Worker(self._generate_pptx, self.status_callback_home)
+        worker.signals.error.connect(self.handle_error_home)
+        worker.signals.finished.connect(lambda: self.ui.generate_ppt.setEnabled(True))
+        self.threadpool.start(worker)
+            
+    def _generate_pptx(self, callback):
+        percentage = 99/len(self.list)
+        for i, person in enumerate(self.list):
+            callback(f'Gerando para: {person["name"]}', (i+1)*percentage)
+            model_path = self.ui.powerpoint_model.text()
+            output_path = self.pptx_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".pptx")
+            pptx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
         
     def start_configs(self):
         cfgs = self.get_cfgs()
@@ -253,6 +311,19 @@ class MainWindow(QMainWindow):
         for col in range(table.columnCount()):
             table.setItem(table.rowCount()-1,col,QTableWidgetItem(obj[cols[col]]))
         table.blockSignals(False)
+
+    def handle_error_home(self, error):
+        self.progress_queue_home = deque()
+        self.progress_queue_home.append(100)
+        self.ui.progressBar_home.setValue(100)
+        
+        self.ui.status_home.setWordWrap(True)
+        self.ui.status_home.setFixedWidth(300)
+
+        if "Permission denied" in error: 
+            file_name = error.split("\\")[-1]
+            error+=f' Check if there is a file named "{file_name}" open. Close it!'
+        self.ui.status_home.setText(f"<div style='text-align: center; color: lightcoral;'>Terminated with the following error:<br>{error}</div>") 
 
     def handle_error(self, error):
         self.progress_queue = deque()
@@ -537,6 +608,32 @@ class MainWindow(QMainWindow):
         clicked_button = message_box.clickedButton()
         return clicked_button.text() if clicked_button else ""
         
+    @Slot()
+    def process_progress_queue_home(self):
+        if self.progress_queue_home:
+            new_value = self.progress_queue_home.popleft()
+            QMetaObject.invokeMethod(self, "animate_progress_home", Qt.ConnectionType.QueuedConnection, Q_ARG(int, new_value))  # type: ignore
+        
+    def status_callback_home(self, message: str, percentage: float):
+        max_lenght = 56
+        if len(message) > max_lenght:
+            message = message[:max_lenght] + "..."
+        self.status_percentage_home += percentage
+        self.status_percentage_home = min(max(self.status_percentage_home, 0), 99) if percentage < 100 else 100
+        if percentage >= 100:
+            self.progress_queue_home = deque()
+        self.progress_queue_home.append(int(self.status_percentage_home))
+        QMetaObject.invokeMethod(self.ui.status_home, "setText", Qt.ConnectionType.QueuedConnection, Q_ARG(str, message))  # type: ignore
+        
+    @Slot(int)
+    def animate_progress_home(self, new_value):
+        self.animation = QPropertyAnimation(self.ui.progressBar_home, b"value")
+        self.animation.setDuration(500)
+        self.animation.setStartValue(self.ui.progressBar_home.value())
+        self.animation.setEndValue(new_value)
+        self.animation.setEasingCurve(QEasingCurve.Type.OutCubic)
+        self.animation.start()
+    
     @Slot()
     def process_progress_queue(self):
         if self.progress_queue:
