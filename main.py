@@ -153,6 +153,13 @@ class MainWindow(QMainWindow):
         self.ui.open_ppt_folder.clicked.connect(self.open_pptx_folder)
         
         self.ui.save_parallel.clicked.connect(self.save_parallel)
+        
+        self.ui.generate_pdf.stateChanged.connect(self.save_generate_pdf)
+    
+    def save_generate_pdf(self, state):
+        cfgs = self.get_cfgs()
+        cfgs["generate_pdf"] = bool(state)
+        self.save_configs(cfgs)
     
     def save_parallel(self):
         cfgs = self.get_cfgs()
@@ -180,10 +187,13 @@ class MainWindow(QMainWindow):
             model_path = self.ui.word_model.text()
             output_path = self.word_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".docx")
             docx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
-            callback(f'Gerano word para: {person["name"]}', (i+1)*(percentage/2))
-            callback(f'Gerando pdf para: {person["name"]}', 0)
-            docx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
-            callback(f'Gerano pdf para: {person["name"]}', (i+1)*(percentage/2))
+            callback(f'Gerado word para: {person["name"]}', (percentage/2))
+            if self.ui.generate_pdf.isChecked():
+                callback(f'Gerando pdf para: {person["name"]}', 0)
+                docx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
+                callback(f'Gerado pdf para: {person["name"]}', (percentage/2))
+            else:
+                callback(f'Gerado word para: {person["name"]}', (percentage/2)) 
         callback("Finalizado", 100)
     
     def generate_pptx(self):
@@ -201,10 +211,13 @@ class MainWindow(QMainWindow):
             model_path = self.ui.powerpoint_model.text()
             output_path = self.pptx_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".pptx")
             pptx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
-            callback(f'Gerado Powerpoint para: {person["name"]}', (i+1)*(percentage/2))
-            callback(f'Gerando pdf para: {person["name"]}', 0)
-            pptx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
-            callback(f'Gerado pdf para: {person["name"]}', (i+1)*(percentage/2))
+            callback(f'Gerado Powerpoint para: {person["name"]}', (percentage/2))
+            if self.ui.generate_pdf.isChecked():
+                callback(f'Gerando pdf para: {person["name"]}', 0)
+                pptx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
+                callback(f'Gerado pdf para: {person["name"]}', (percentage/2))
+            else:
+                callback(f'Gerado Powerpoint para: {person["name"]}', (percentage/2))
         callback("Finalizado", 100)
         
     def start_configs(self):
@@ -213,6 +226,7 @@ class MainWindow(QMainWindow):
         self.ui.word_model.setText(cfgs["word_model"])
         self.ui.powerpoint_model.setText(cfgs["pptx_model"])
         self.ui.parallel_pages.setText(str(cfgs["parallel"]))
+        self.ui.generate_pdf.setChecked(cfgs["generate_pdf"])
     
     def get_cfgs(self):
         with open("config/general.json", "r") as file:

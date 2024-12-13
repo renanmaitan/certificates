@@ -2279,11 +2279,11 @@ border-radius: 5px;</string>
                             </layout>
                            </widget>
                           </item>
-                          <item alignment="Qt::AlignHCenter">
-                           <widget class="QWidget" name="generate_pdf" native="true">
+                          <item>
+                           <widget class="QWidget" name="widget_17" native="true">
                             <layout class="QHBoxLayout" name="horizontalLayout_15">
-                             <item>
-                              <widget class="QCheckBox" name="checkBox">
+                             <item alignment="Qt::AlignHCenter">
+                              <widget class="QCheckBox" name="generate_pdf">
                                <property name="font">
                                 <font>
                                  <pointsize>11</pointsize>

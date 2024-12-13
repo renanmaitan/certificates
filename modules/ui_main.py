@@ -15,11 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
-    QLabel, QLineEdit, QMainWindow, QPlainTextEdit,
-    QProgressBar, QPushButton, QSizePolicy, QSpacerItem,
-    QStackedWidget, QTableWidget, QTableWidgetItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QHBoxLayout,
+    QHeaderView, QLabel, QLineEdit, QMainWindow,
+    QPlainTextEdit, QProgressBar, QPushButton, QSizePolicy,
+    QSpacerItem, QStackedWidget, QTableWidget, QTableWidgetItem,
+    QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -1435,6 +1435,19 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_13.addWidget(self.widget_16)
 
+        self.widget_17 = QWidget(self.widget_12)
+        self.widget_17.setObjectName(u"widget_17")
+        self.horizontalLayout_15 = QHBoxLayout(self.widget_17)
+        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
+        self.generate_pdf = QCheckBox(self.widget_17)
+        self.generate_pdf.setObjectName(u"generate_pdf")
+        self.generate_pdf.setFont(font5)
+
+        self.horizontalLayout_15.addWidget(self.generate_pdf, 0, Qt.AlignHCenter)
+
+
+        self.verticalLayout_13.addWidget(self.widget_17)
+
 
         self.verticalLayout_14.addWidget(self.widget_12, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
@@ -1593,6 +1606,7 @@ class Ui_MainWindow(object):
         self.choose_pptx.setText(QCoreApplication.translate("MainWindow", u"Escolher", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Quantidade de navegadores simult\u00e2neos", None))
         self.save_parallel.setText(QCoreApplication.translate("MainWindow", u"Salvar", None))
+        self.generate_pdf.setText(QCoreApplication.translate("MainWindow", u"Gerar PDF", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"Developed by Renan A. Maitan", None))
         self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.0", None))
     # retranslateUi
