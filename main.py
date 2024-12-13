@@ -703,3 +703,4 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon("icon.ico"))
     window = MainWindow()
     sys.exit(app.exec())
+#python -m nuitka --standalone --include-data-dir=./config=config --windows-force-stdout-spec=./config/log/build.out.txt  --windows-force-stderr-spec=./config/log/build.err.txt --windows-console-mode=disable --enable-plugin=pyside6 --windows-icon-from-ico=icon.ico main.py
