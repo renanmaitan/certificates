@@ -473,10 +473,13 @@ class MainWindow(QMainWindow):
             UIFunctions.resetStyle(self, btnName)
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
             
-        if btnName == "list_btn" or btnName == "open_name_list":
+        if btnName == "list_btn":
             self.ui.stackedWidget.setCurrentWidget(self.ui.list_view)
             UIFunctions.resetStyle(self, btnName)
             btn.setStyleSheet(UIFunctions.selectMenu(btn.styleSheet()))
+            
+        if btnName == "open_name_list":
+            self.ui.list_btn.click()
             
         if btnName == "cfg_btn":
             self.ui.stackedWidget.setCurrentWidget(self.ui.script_config)
