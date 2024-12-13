@@ -47,8 +47,9 @@ class SearcherController:
         sublist = list[(self.paralel_pages-1)*items_per_page:]
         self.splitted_list.append(sublist)
         
-    def search_list(self, list: List[Tuple[str, str]], callback_subtitle, callback_result):
-        
+    def search_list(self, list: List[Tuple[str, str]], callback_result):
+        def callback_subtitle(message):
+            callback_result([],True,message)
         self.split_list(list)
         self.start_pages()
         

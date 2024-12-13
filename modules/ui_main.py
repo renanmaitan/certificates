@@ -1195,6 +1195,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.status, 0, Qt.AlignHCenter)
 
+        self.legend = QLabel(self.widget_11)
+        self.legend.setObjectName(u"legend")
+
+        self.verticalLayout_12.addWidget(self.legend, 0, Qt.AlignHCenter)
+
 
         self.verticalLayout_11.addWidget(self.widget_11, 0, Qt.AlignHCenter)
 
@@ -1514,7 +1519,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1542,7 +1547,7 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.closeAppBtn.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"PyCertificate", None))
-        self.status_home.setText(QCoreApplication.translate("MainWindow", u"not started", None))
+        self.status_home.setText(QCoreApplication.translate("MainWindow", u"n\u00e3o iniciado", None))
         self.generate_word.setText(QCoreApplication.translate("MainWindow", u"Gerar certificados Word", None))
         self.generate_ppt.setText(QCoreApplication.translate("MainWindow", u"Gerar certificados PowerPoint", None))
         self.open_word_folder.setText("")
@@ -1569,7 +1574,8 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.tiny_btn.setText(QCoreApplication.translate("MainWindow", u"min\u00fasculas", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Lista de Pessoas", None))
-        self.status.setText(QCoreApplication.translate("MainWindow", u"not started", None))
+        self.status.setText(QCoreApplication.translate("MainWindow", u"n\u00e3o inciado", None))
+        self.legend.setText("")
         ___qtablewidgetitem = self.list_table.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Nome", None));
         ___qtablewidgetitem1 = self.list_table.horizontalHeaderItem(1)

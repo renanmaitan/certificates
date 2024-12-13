@@ -373,9 +373,10 @@ class MainWindow(QMainWindow):
         self.ui.status.setText(f"<div style='text-align: center; color: lightcoral;'>Terminated with the following error:<br>{error}</div>") 
         
     def finished(self):
-        ...
+        self.ui.find_btn.setEnabled(True)
         
     def start_search(self):
+        self.ui.find_btn.setEnabled(False)
         self.ui.progressBar.setMaximumHeight(16777215)
         self.ui.progressBar.setMaximumWidth(16777215)
         self.progress_queue = deque()
@@ -383,7 +384,7 @@ class MainWindow(QMainWindow):
         self.ui.progressBar.setValue(0)
         worker = Worker(self._start_search)
         worker.signals.error.connect(self.handle_error)
-        # worker.signals.finished.connect(self.finished)
+        worker.signals.finished.connect(self.finished)
         self.threadpool.start(worker)
         
     @Slot(str)
@@ -413,14 +414,16 @@ class MainWindow(QMainWindow):
             )
             self.status_callback(f"Nomes buscados 0/{qtt}", 0)
             percentage = 100/qtt
-            def result(result: List[Dict[str, str]]):
+            def result(result: List[Dict[str, str]], subtitle:bool =False, subtitle_msg:str = ""):
+                if subtitle:
+                    self.status_callback(self.ui.status.text(),0,subtitle_msg)
                 self.buscados += len(result)
                 self.status_callback(f"Nomes buscados: {self.buscados}/{qtt}", len(result)*percentage if self.buscados!=qtt else 100)
                 for value in result:
                     value_json = json.dumps(value)
                     QMetaObject.invokeMethod(self, "update_item", Qt.ConnectionType.QueuedConnection, Q_ARG(str, value_json))
             if btn == "&Yes":
-                sc.search_list(pessoas, lambda x: print("Subtitle: ", x), result)
+                sc.search_list(pessoas, result)
         
     def format_tel_input(self):
         text = self.ui.tel_input.text()
@@ -671,7 +674,7 @@ class MainWindow(QMainWindow):
             new_value = self.progress_queue.popleft()
             QMetaObject.invokeMethod(self, "animate_progress", Qt.QueuedConnection, Q_ARG(int, new_value))  # type: ignore
             
-    def status_callback(self, message: str, percentage: float):
+    def status_callback(self, message: str, percentage: float, subtitle:str = None):
         max_lenght = 56
         if len(message) > max_lenght:
             message = message[:max_lenght] + "..."
@@ -680,7 +683,9 @@ class MainWindow(QMainWindow):
         if percentage >= 100:
             self.progress_queue = deque()
         self.progress_queue.append(int(self.status_percentage))
-        QMetaObject.invokeMethod(self.ui.status, "setText", Qt.QueuedConnection, Q_ARG(str, message))  # type: ignore
+        QMetaObject.invokeMethod(self.ui.status, "setText", Qt.ConnectionType.QueuedConnection, Q_ARG(str, message))
+        if subtitle:
+            QMetaObject.invokeMethod(self.ui.legend, "setText", Qt.ConnectionType.QueuedConnection, Q_ARG(str, subtitle))
         
     @Slot(int)
     def animate_progress(self, new_value):
