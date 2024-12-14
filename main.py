@@ -177,51 +177,59 @@ class MainWindow(QMainWindow):
         
     def generate_word(self):
         self.ui.progressBar_home.setValue(0)
+        self.status_percentage_home = 0
         self.ui.generate_word.setEnabled(False)
         worker = Worker(self._generate_word, self.status_callback_home)
         worker.signals.error.connect(self.handle_error_home)
-        worker.signals.finished.connect(lambda: self.ui.generate_word.setEnabled(True))
+        worker.signals.finished.connect(self.finished_generate)
         self.threadpool.start(worker)
+    
+    def finished_generate(self):
+        self.ui.generate_word.setEnabled(True)
+        self.ui.generate_ppt.setEnabled(True)
 
     def _generate_word(self, callback):
-        percentage = 99/len(self.list)
-        for i, person in enumerate(self.list):
-            callback(f'Gerando word para: {person["name"]}', 0)
-            model_path = self.ui.word_model.text()
-            output_path = self.word_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".docx")
-            docx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
-            callback(f'Gerado word para: {person["name"]}', (percentage/2))
-            if self.ui.generate_pdf.isChecked():
-                callback(f'Gerando pdf para: {person["name"]}', 0)
-                docx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
-                callback(f'Gerado pdf para: {person["name"]}', (percentage/2))
-            else:
-                callback(f'Gerado word para: {person["name"]}', (percentage/2)) 
-        callback("Finalizado", 100)
+        if len(self.list)>0:
+            percentage = 99/len(self.list)
+            for i, person in enumerate(self.list):
+                callback(f'Gerando word para: {person["name"]}', 0)
+                model_path = self.ui.word_model.text()
+                output_path = self.word_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".docx")
+                docx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
+                callback(f'Gerado word para: {person["name"]}', (percentage/2))
+                if self.ui.generate_pdf.isChecked():
+                    callback(f'Gerando pdf para: {person["name"]}', 0)
+                    docx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
+                    callback(f'Gerado pdf para: {person["name"]}', (percentage/2))
+                else:
+                    callback(f'Gerado word para: {person["name"]}', (percentage/2)) 
+            callback("Finalizado", 100)
     
     def generate_pptx(self):
         self.ui.progressBar_home.setValue(0)
+        self.status_percentage_home = 0
         self.ui.generate_ppt.setEnabled(False)
         worker = Worker(self._generate_pptx, self.status_callback_home)
         worker.signals.error.connect(self.handle_error_home)
-        worker.signals.finished.connect(lambda: self.ui.generate_ppt.setEnabled(True))
+        worker.signals.finished.connect(self.finished_generate)
         self.threadpool.start(worker)
             
     def _generate_pptx(self, callback):
-        percentage = 99/len(self.list)
-        for i, person in enumerate(self.list):
-            callback(f'Gerando Powerpoint para: {person["name"]}', 0)
-            model_path = self.ui.powerpoint_model.text()
-            output_path = self.pptx_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".pptx")
-            pptx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
-            callback(f'Gerado Powerpoint para: {person["name"]}', (percentage/2))
-            if self.ui.generate_pdf.isChecked():
-                callback(f'Gerando pdf para: {person["name"]}', 0)
-                pptx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
-                callback(f'Gerado pdf para: {person["name"]}', (percentage/2))
-            else:
+        if len(self.list)>0:
+            percentage = 99/len(self.list)
+            for i, person in enumerate(self.list):
+                callback(f'Gerando Powerpoint para: {person["name"]}', 0)
+                model_path = self.ui.powerpoint_model.text()
+                output_path = self.pptx_folder / (self.ui.name_model.text().replace("{nome}", person["name"]) + ".pptx")
+                pptx_util.replace_placeholders(model_path, person["name"], person["cpf"], output_path)
                 callback(f'Gerado Powerpoint para: {person["name"]}', (percentage/2))
-        callback("Finalizado", 100)
+                if self.ui.generate_pdf.isChecked():
+                    callback(f'Gerando pdf para: {person["name"]}', 0)
+                    pptx_util.save_as_pdf(str(output_path),str(output_path.with_suffix(".pdf")))
+                    callback(f'Gerado pdf para: {person["name"]}', (percentage/2))
+                else:
+                    callback(f'Gerado Powerpoint para: {person["name"]}', (percentage/2))
+            callback("Finalizado", 100)
         
     def start_configs(self):
         cfgs = self.get_cfgs()
@@ -396,7 +404,6 @@ class MainWindow(QMainWindow):
         table = self.ui.list_table
         cols = ["name", "birth", "cpf"]
         for row in range(table.rowCount()):
-            print(new_item)
             if table.item(row,2).text().replace(".","").replace("-","") == new_item["old_cpf"].replace(".","").replace("-",""):
                 if "Erro" in new_item:
                     if not table.item(row,0).text() or "CPF" in table.item(row,0).text():
