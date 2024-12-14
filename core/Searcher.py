@@ -60,8 +60,9 @@ class Searcher():
             only_digits_list = list(only_digits)
             if "x" in str.lower(pessoa[0]):
                 new_cpfs = self.try_cpf(pessoa[0])
+                new_cpfs = set(new_cpfs)
                 for new_cpf in new_cpfs:
-                    dados.extend(self.search(new_cpf, pessoa[1], callback))
+                    dados.extend(self.search(new_cpf, pessoa[1], pessoa[0], callback))
                 continue
             elif len(only_digits) < 11:
                 to_search = set()
@@ -69,20 +70,21 @@ class Searcher():
                     only_digits_lis_copy = only_digits_list.copy()
                     only_digits_lis_copy.insert(i, "X")
                     new_cpfs = self.try_cpf("".join(only_digits_lis_copy))
+                    new_cpfs = set(new_cpfs)
                     for new_cpf in new_cpfs:
                         to_search.add(new_cpf)
                 for element in to_search:
-                    dados.extend(self.search(element, pessoa[1], callback))
+                    dados.extend(self.search(element, pessoa[1], pessoa[0], callback))
                 continue
-            dados.extend(self.search(pessoa[0], pessoa[1], callback))
+            dados.extend(self.search(pessoa[0], pessoa[1], pessoa[0], callback))
         return dados
             
-    def search(self, cpf: str, data_nasc: str, callback, check_tentativas = 1)-> List[Dict[str, str]]:
+    def search(self, cpf: str, data_nasc: str, old_cpf: str, callback, check_tentativas = 1)-> List[Dict[str, str]]:
         if "x" in str.lower(data_nasc):
             dados = []
             dates = self.try_nasc(data_nasc, [])
             for date in dates:
-                dados.extend(self.search(cpf,date,callback))
+                dados.extend(self.search(cpf,date,old_cpf,callback))
             return dados
         if check_tentativas > 3: return [{"Erro": "Não foi possível verificar o checkbox"}]
         callback("Direcionando para a receita federal")
@@ -111,7 +113,7 @@ class Searcher():
         )
         if checkbox.get_attribute("aria-checked") != "true":
             callback(f"Erro ao fazer o checkbox para {cpf}. Tentativas restantes: {3-check_tentativas}")
-            return self.search(cpf, data_nasc, callback, check_tentativas+1)
+            return self.search(cpf, data_nasc, old_cpf, callback, check_tentativas+1)
         self.driver.switch_to.default_content()
         callback("Buscando dados")        
         WebDriverWait(self.driver, 10).until(
@@ -133,17 +135,25 @@ class Searcher():
                     elif "No do CPF" in linha:
                         n_cpf = linha.split(":")[1].strip()
                 return [{
-                    "old_cpf": cpf,
+                    "old_cpf": old_cpf,
                     "cpf": n_cpf,
                     "name": nome,
                     "birth": data
                 }]
             except Exception as e:
+                text = self.driver.find_element(By.XPATH, "/html/body/div[2]/div[2]/div[1]/div/div/div/div/div[1]").text
+                if "Data de nascimento" in text:
+                    return [{
+                        "old_cpf": old_cpf,
+                        "Erro": "Data de nascimento incorreta!"
+                    }]
                 return [{
-                    "Erro": "CPF ou Data de nascimento incorreto!"
+                    "old_cpf": old_cpf,
+                    "Erro": "CPF incorreto!"
                 }]
         except:
             return [{
+                "old_cpf": old_cpf,
                 "Erro": "Erro ao carregar a página de resultado!"
             }]
             
