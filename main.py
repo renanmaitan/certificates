@@ -20,6 +20,7 @@ from pathlib import Path
 import sys
 import os
 import platform
+import comtypes.stream
 from typing import Dict, List, Union
 import unicodedata
 
@@ -79,7 +80,7 @@ class MainWindow(QMainWindow):
         # SET CUSTOM THEME
         # ///////////////////////////////////////////////////////////////
         useCustomTheme = False
-        themeFile = "themes\py_dracula_light.qss"
+        themeFile = r"themes\py_dracula_light.qss"
 
         # SET THEME AND HACKS
         if useCustomTheme:
@@ -395,7 +396,12 @@ class MainWindow(QMainWindow):
         table = self.ui.list_table
         cols = ["name", "birth", "cpf"]
         for row in range(table.rowCount()):
+            print(new_item)
             if table.item(row,2).text().replace(".","").replace("-","") == new_item["old_cpf"].replace(".","").replace("-",""):
+                if "Erro" in new_item:
+                    if not table.item(row,0).text() or "CPF" in table.item(row,0).text():
+                        table.setItem(row,0,QTableWidgetItem(new_item["Erro"]))
+                    continue
                 for col in range(table.columnCount()-2):
                     table.setItem(row,col,QTableWidgetItem(new_item[cols[col]]))
         self.on_table_change()
@@ -403,14 +409,26 @@ class MainWindow(QMainWindow):
     def _start_search(self):
         pessoas = []
         self.buscados = 0
-        for pessoa in self.list:
-            pessoas.append((pessoa["cpf"].replace(".","").replace("-",""), pessoa["birth"].replace("/","")))
+        table = self.ui.list_table
+        if len(table.selectedItems()) > 0:
+            rows = set()
+            for selected in table.selectedItems():
+                row = selected.row()
+                if row in rows:
+                    continue
+                rows.add(row)
+                cpf = table.item(row,2).text().replace(".","").replace("-","")
+                birth = table.item(row,1).text().replace("/","")
+                pessoas.append((cpf, birth))
+        else:
+            for pessoa in self.list:
+                pessoas.append((pessoa["cpf"].replace(".","").replace("-",""), pessoa["birth"].replace("/","")))
         if len(pessoas)>0:
             sc = SearcherController(int(self.ui.parallel_pages.text()),False)
             qtt = SearcherController.qtt_tests(pessoas)
             btn = self.show_message_from_thread(
-                f"{qtt} nomes",
-                f"{qtt} nomes serão buscados. Tem certeza de que deseja continuar?",
+                f"{qtt} CPFs",
+                f"{qtt} CFPs serão buscados. Tem certeza de que deseja continuar?",
                 buttons=[QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No],
                 defaultButton=QMessageBox.StandardButton.Yes
             )
@@ -434,8 +452,8 @@ class MainWindow(QMainWindow):
             text=text[:11]
         if len(text) > 2:
             text = f"{text[:2]} " + text[2:]
-        if len(text) > 10:
-            text = text[:10] + '-' + text[10:]
+        if len(text) > 8:
+            text = text[:8] + '-' + text[8:]
         self.ui.tel_input.setText(text)
         
     def format_birth_input(self):
