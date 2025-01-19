@@ -494,7 +494,7 @@ class MainWindow(QMainWindow):
         return not "x" in str.lower(cpf) and not Searcher.valida_cpf(cpf) and len(only_digits)==11
     
     def add_one(self):
-        if (self.ui.birth_input and self.ui.cpf_input) and (self.ui.cpf_input.text() and self.ui.birth_input.text()):
+        if (self.ui.cpf_input) and (self.ui.cpf_input.text()):
             if self.invalid_cpf(self.ui.cpf_input.text()):
                 QMessageBox.warning(
                     self,
@@ -504,7 +504,7 @@ class MainWindow(QMainWindow):
                 )
                 return
             new_obj = {
-                    "name": "",
+                    "name": self.ui.name_input.text(),
                     "birth": self.ui.birth_input.text(),
                     "cpf": self.ui.cpf_input.text(),
                     "tel": self.ui.tel_input.text() if self.ui.tel_input else "",
@@ -512,14 +512,14 @@ class MainWindow(QMainWindow):
                 }
             self.list.append(new_obj)
             self.add_item(new_obj)
-            inputs = [self.ui.birth_input, self.ui.cpf_input, self.ui.tel_input, self.ui.email_input]
+            inputs = [self.ui.birth_input, self.ui.cpf_input, self.ui.tel_input, self.ui.email_input, self.ui.name_input]
             for input in inputs:
                 input.setText("")
             return
         QMessageBox.warning(
             self,
             "Valores vazios!",
-            "Obrigatoriamente preencha a Data de nascimento e CPF",
+            "Obrigatoriamente preencha o CPF",
             defaultButton=QMessageBox.StandardButton.Ok
         )
         
@@ -600,7 +600,7 @@ class MainWindow(QMainWindow):
         if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:
             self.ui.add_one.click()
             self.ui.add_mult.click()
-            self.ui.birth_input.setFocus()
+            self.ui.name_input.setFocus()
 
     def mousePressEvent(self, event):
         self.dragPos = QCursor.pos()
