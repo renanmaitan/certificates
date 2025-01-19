@@ -855,6 +855,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.widget = QWidget(self.home)
         self.widget.setObjectName(u"widget")
+        self.widget.setMinimumSize(QSize(0, 0))
+        self.widget.setMaximumSize(QSize(16777215, 16777215))
         self.verticalLayout = QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.label = QLabel(self.widget)
@@ -1027,16 +1029,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addWidget(self.label_2, 0, Qt.AlignHCenter)
 
-        self.label_3 = QLabel(self.widget_5)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setFont(font5)
+        self.label_17 = QLabel(self.widget_5)
+        self.label_17.setObjectName(u"label_17")
+        self.label_17.setFont(font5)
 
-        self.verticalLayout_7.addWidget(self.label_3, 0, Qt.AlignHCenter)
+        self.verticalLayout_7.addWidget(self.label_17, 0, Qt.AlignHCenter)
 
-        self.birth_input = QLineEdit(self.widget_5)
-        self.birth_input.setObjectName(u"birth_input")
+        self.name_input = QLineEdit(self.widget_5)
+        self.name_input.setObjectName(u"name_input")
 
-        self.verticalLayout_7.addWidget(self.birth_input)
+        self.verticalLayout_7.addWidget(self.name_input)
 
         self.label_4 = QLabel(self.widget_5)
         self.label_4.setObjectName(u"label_4")
@@ -1048,6 +1050,17 @@ class Ui_MainWindow(object):
         self.cpf_input.setObjectName(u"cpf_input")
 
         self.verticalLayout_7.addWidget(self.cpf_input)
+
+        self.label_3 = QLabel(self.widget_5)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setFont(font5)
+
+        self.verticalLayout_7.addWidget(self.label_3, 0, Qt.AlignHCenter)
+
+        self.birth_input = QLineEdit(self.widget_5)
+        self.birth_input.setObjectName(u"birth_input")
+
+        self.verticalLayout_7.addWidget(self.birth_input)
 
         self.label_6 = QLabel(self.widget_5)
         self.label_6.setObjectName(u"label_6")
@@ -1160,7 +1173,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.addWidget(self.widget_6, 0, Qt.AlignHCenter)
 
 
-        self.verticalLayout_5.addWidget(self.widget_4)
+        self.verticalLayout_5.addWidget(self.widget_4, 0, Qt.AlignVCenter)
 
         self.stackedWidget.addWidget(self.home)
         self.list_view = QWidget()
@@ -1556,10 +1569,11 @@ class Ui_MainWindow(object):
         self.open_pdf_ppt_folder.setText("")
         self.open_ppt_folder.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Adicionar um nome", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"CPF *", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Data de nascimento", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"CPF", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Telefone (Opcional)", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Email (Opcional)", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Telefone", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Email", None))
         self.add_one.setText(QCoreApplication.translate("MainWindow", u"Adicionar", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Adicionar v\u00e1rios nomes", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Ordem1: Data de nascimento CPF Telefone Email", None))

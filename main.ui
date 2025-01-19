@@ -1141,7 +1141,7 @@ Button */
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset>
                     <normaloff>:/icons/images/icons/icon_minimize.png</normaloff>:/icons/images/icons/icon_minimize.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1185,7 +1185,7 @@ Button */
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset>
                     <normaloff>:/icons/images/icons/icon_maximize.png</normaloff>:/icons/images/icons/icon_maximize.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1220,7 +1220,7 @@ Button */
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset>
                     <normaloff>:/icons/images/icons/icon_close.png</normaloff>:/icons/images/icons/icon_close.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1327,6 +1327,18 @@ Button */
                       <layout class="QVBoxLayout" name="verticalLayout_5">
                        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                         <widget class="QWidget" name="widget" native="true">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777215</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
                          <layout class="QVBoxLayout" name="verticalLayout">
                           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                            <widget class="QLabel" name="label">
@@ -1608,7 +1620,7 @@ height: 64px;</string>
                          </layout>
                         </widget>
                        </item>
-                       <item>
+                       <item alignment="Qt::AlignVCenter">
                         <widget class="QWidget" name="widget_4" native="true">
                          <layout class="QHBoxLayout" name="horizontalLayout_8">
                           <item alignment="Qt::AlignHCenter">
@@ -1637,6 +1649,36 @@ height: 64px;</string>
                               </widget>
                              </item>
                              <item alignment="Qt::AlignHCenter">
+                              <widget class="QLabel" name="label_17">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="text">
+                                <string>Nome</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="name_input"/>
+                             </item>
+                             <item alignment="Qt::AlignHCenter">
+                              <widget class="QLabel" name="label_4">
+                               <property name="font">
+                                <font>
+                                 <pointsize>11</pointsize>
+                                </font>
+                               </property>
+                               <property name="text">
+                                <string>CPF *</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="cpf_input"/>
+                             </item>
+                             <item alignment="Qt::AlignHCenter">
                               <widget class="QLabel" name="label_3">
                                <property name="font">
                                 <font>
@@ -1652,21 +1694,6 @@ height: 64px;</string>
                               <widget class="QLineEdit" name="birth_input"/>
                              </item>
                              <item alignment="Qt::AlignHCenter">
-                              <widget class="QLabel" name="label_4">
-                               <property name="font">
-                                <font>
-                                 <pointsize>11</pointsize>
-                                </font>
-                               </property>
-                               <property name="text">
-                                <string>CPF</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item>
-                              <widget class="QLineEdit" name="cpf_input"/>
-                             </item>
-                             <item alignment="Qt::AlignHCenter">
                               <widget class="QLabel" name="label_6">
                                <property name="font">
                                 <font>
@@ -1674,7 +1701,7 @@ height: 64px;</string>
                                 </font>
                                </property>
                                <property name="text">
-                                <string>Telefone (Opcional)</string>
+                                <string>Telefone</string>
                                </property>
                               </widget>
                              </item>
@@ -1689,7 +1716,7 @@ height: 64px;</string>
                                 </font>
                                </property>
                                <property name="text">
-                                <string>Email (Opcional)</string>
+                                <string>Email</string>
                                </property>
                               </widget>
                              </item>
